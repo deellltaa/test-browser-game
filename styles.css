@@ -11,6 +11,11 @@ h1.center {
     text-align:center;
 }
 
+div.passage {
+    margin:auto;
+    width: 90%;
+}
+
 p.center {
     text-align: center;
 }
