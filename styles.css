@@ -7,11 +7,13 @@ body {
 
 }
 
-p.center {
-    margin-left: 0;
+h1.center {
     text-align:center;
 }
 
+p.center {
+    text-align: center;
+}
 .container {
     display: grid;
     grid-template-columns: auto auto auto;
