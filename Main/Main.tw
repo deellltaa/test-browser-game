@@ -1,6 +1,14 @@
-:: :: StoryData
+:: StoryData
 {
-    "ifid": "201C3114-C46F-4B20-B131-63E2160DE135", 
-    "format": "SugarCube",
-    "format-version": "2.30.0"
+    "ifid": "201C3114-C46F-4B20-B131-63E2160DE135",
+    "format": "",
+    "format-version": "",
+    "zoom": 1,
+    "start":"Test"
 }
+
+:: StoryTitle
+Test Story
+
+:: Test
+Hello, world
