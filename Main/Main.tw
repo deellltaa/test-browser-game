@@ -43,15 +43,15 @@ You have died @@color:red;<<= $player.deaths>>@@ times.
 Poking: <<= $player.skills.poking>>
 Tossing: <<= $player.skills.tossing>>
 Punching <<= $player.skills.punching>>
-
+\
 !Inventory
-<<if JSON.stringify($player.inventory) === "{}">>
+<<if JSON.stringify($player.inventory) === "{}">>\
 Nothing here yet... go find some stuff.
-<<else>>
-<<if $player.inventory.brick !== undefined>>
+<<else>>\
+<<if $player.inventory.brick !== undefined>>\
 <<= $player.inventory.brick>>x Brick
-<</if>>
-<</if>>
+<</if>>\
+<</if>>\
 <</if>>
 <<return "Go back">>
 

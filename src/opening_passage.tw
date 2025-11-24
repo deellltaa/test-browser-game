@@ -35,17 +35,21 @@ light inside this place.
 <</link>>
 <</if>>\
 <<if $windowChecked_opening === false>>\
-[[Check out the window (0:01)|Window_Opening][$windowChecked_opening = true]]
 <<link "Check out the window (0:01)" "Window_Opening">>
     <<set $windowChecked_opening = true>>
     <<set $time += 1>>
 <</link>>
 <</if>>\
-[[Wait until night.|Opening_4]]
+<<link "Wait until night." "Opening_4">>
+    <<set $time = 1200>>
+<</link>>\
 
 :: Salvage_Opening
 You find a loose @@color:red;brick@@. You're not sure what to use it for, but \
 you keep it in mind, regardless.
+
+@@color:yellow;You've discovered Bricks!@@ You can now keep track of them \
+in your inventory. (Check your stats!)
 
 [[Okay...|Prison_Cell_Opening]]
 
