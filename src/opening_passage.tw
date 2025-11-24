@@ -7,9 +7,9 @@ You're all alone. But that doesn't feel like a bad thing.
 You groggily push yourself up, ignoring the sharp pains that assault your poor body \
 as you attempt to do so. There was hardly any light around, making it difficult to survey \
 your surroundings. But you could at least tell what was in your immediate vicinity.
-[[Next|Opening_3]]
+[[Next|Prison_Cell]]
 
-:: Opening_3
+:: Prison_Cell
 <<if $collected === undefined>>\
 <<set $collected = false>>\
 <</if>>\
@@ -27,4 +27,4 @@ light inside this place.
 :: Salvage
 You collect some loose stuff.
 
-[[Okay...|Opening_3]]
+[[Okay...|Prison_Cell]]
