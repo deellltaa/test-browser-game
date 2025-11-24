@@ -1,0 +1,65 @@
+:: Opening
+You wake up in a dark cell. You have nothing. No name. No money. No strength. No masters.
+You're all alone. But that doesn't feel like a bad thing.
+[[Next|Opening_2]]
+
+:: Opening_2
+You groggily push yourself up, ignoring the sharp pains that assault your poor body \
+as you attempt to do so. There was hardly any light around, making it difficult to survey \
+your surroundings. But you could at least tell what was in your immediate vicinity.
+[[Next|Prison_Cell_Opening]]
+
+:: Prison_Cell_Opening
+<<if $collected_opening === undefined>>\
+<<set $collected_opening = false>>\
+<</if>>\
+<<if $windowChecked_opening === undefined>>\
+<<set $windowChecked_opening = false>>\
+<</if>>
+You are—, or, well, //were//, on a ratty bed frame, lacking even a simple mattress \
+to comfort you. Thankfully, you had no memory of ever sleeping in that thing, even if \
+you just woke up right now. The walls around you were made of stone bricks, with iron \
+bars separating you from the corridor outside your cell. You glance at a small opening \
+above your head and see it similarly closed off with iron bars. It is your only source of \
+light inside this place.
+
+<<if $collected_opening === false>>
+<<link "Collect any loose items you can (0:10)" "Salvage_Opening">>
+    <<set $collected_opening = true>>\
+    <<set $time += 10>>\
+    <<if $player.inventory.brick === undefined>>\
+    <<set $player.inventory.brick = 1>>\
+    <<else>>\
+    <<set $player.inventory.brick += 1>>\
+    <</if>>\
+<</link>>
+<</if>>\
+<<if $windowChecked_opening === false>>\
+<<link "Check out the window (0:01)" "Window_Opening">>
+    <<set $windowChecked_opening = true>>
+    <<set $time += 1>>
+<</link>>
+<</if>>\
+<<link "Wait until night." "Opening_4">>
+    <<set $time = 1200>>
+<</link>>\
+
+:: Salvage_Opening
+You find a loose @@color:red;brick@@. You're not sure what to use it for, but \
+you keep it in mind, regardless.
+
+@@color:yellow;You've discovered Bricks!@@ You can now keep track of them \
+in your inventory. (Check your stats!)
+
+[[Okay...|Prison_Cell_Opening]]
+
+:: Window_Opening
+It's difficult to see through your window, as grass covers most of the view outside. \
+But it isn't too difficult to make out people in armor doing repetitive actions, and hear \
+their yelling even from where you are. You wonder what they're doing, but you can't \
+exactly go out to check.
+
+[[Okay...|Prison_Cell_Opening]]
+
+:: Opening_4
+Time passes. You're not sure what you're doing here.

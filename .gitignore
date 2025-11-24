@@ -1,3 +1,14 @@
 *.txt
-*.log
 *.save
+*.log
+
+
+# Ignoring tweego stuff because I'm foolish and put them in
+# the project folder...
+
+tweego.exe
+LICENSE
+format.js
+logo.svg
+icon.svg
+settings.json

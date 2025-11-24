@@ -1,0 +1,77 @@
+:: StoryData
+{
+    "ifid": "201C3114-C46F-4B20-B131-63E2160DE135",
+    "format": "SugarCube",
+    "format-version": "v2.30.0",
+    "zoom": 1
+}
+
+:: StoryTitle
+Test Story
+
+:: StorySubtitle
+v0.0.1
+
+<<if $gameStart === true>>
+Day <<print $day>>
+<<print Math.trunc($time/60)>>:\
+<<if $time%60 < 10>>\
+0<<print $time%60>>\
+<<else>>\
+<<print $time%60>>\
+<</if>>\
+<</if>>\
+
+:: StoryMenu
+<<if $gameStart === true>>
+    [[Stats]]
+<</if>>
+
+:: Stats
+!!Player Stats
+You are @@color:yellow;<<print $player.name>>@@
+<<if $gameStart === true>>
+Level <<= $player.level>>
+You have <<= $player.skillpoints>> skillpoints left.
+<<if $player.deaths > 0 >>\
+You have died @@color:red;<<= $player.deaths>>@@ times.
+<<else>>\
+\
+<</if>>\
+
+!Skills
+Poking: <<= $player.skills.poking>>
+Tossing: <<= $player.skills.tossing>>
+Punching <<= $player.skills.punching>>
+\
+!Inventory
+<<if JSON.stringify($player.inventory) === "{}">>\
+Nothing here yet... go find some stuff.
+<<else>>\
+<<if $player.inventory.brick !== undefined>>\
+<<= $player.inventory.brick>>x Brick
+<</if>>\
+<</if>>\
+<</if>>
+<<return "Go back">>
+
+:: StoryInit
+<<silently>>
+    <<set $player = {
+        skills: {
+            poking: 0,
+            tossing: 0,
+            punching: 0
+        },
+        skillpoints: 0,
+        level: 0,
+        prestige: 0,
+        deaths: 0,
+        energy: 100,
+        inventory: {}
+    }
+    >>
+    <<set $gameStart = false>>
+    <<set $time = 0>>
+    <<set $day = 0>>
+<</silently>>
