@@ -10,5 +10,40 @@
 :: StoryTitle
 Test Story
 
+:: StorySubtitle
+v0.0.1
+
+:: StoryMenu
+<<if $gameStart === true>>
+    [[Stats]]
+<</if>>
+
+:: Stats
+!!Player Stats
+You are <<print $player.name>>
+<<if $gameStart === true>>
+You're pretty good!
+<</if>>
+<<return "Go back">>
+
 :: Test
 Hello, world
+[[Opening][$gameStart = true]]
+
+:: StoryInit
+<<silently>>
+    <<set $player = {
+        name:"Nobody... yet",
+        cash: 0,
+        level: 1
+    }
+    >>
+
+    <<set $skills = {
+        moneymaking: 0,
+        protection: 1,
+        thievery: 0
+    }>>
+
+    <<set $gameStart = false>>
+<</silently>>

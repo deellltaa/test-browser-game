@@ -1,0 +1,30 @@
+:: Opening
+You wake up in a dark cell. You have nothing. No name. No money. No strength. No masters.
+You're all alone. But that doesn't feel like a bad thing.
+[[Next|Opening_2]]
+
+:: Opening_2
+You groggily push yourself up, ignoring the sharp pains that assault your poor body \
+as you attempt to do so. There was hardly any light around, making it difficult to survey \
+your surroundings. But you could at least tell what was in your immediate vicinity.
+[[Next|Opening_3]]
+
+:: Opening_3
+<<if $collected === undefined>>\
+<<set $collected = false>>\
+<</if>>\
+You are—, or, well, //were//, on a ratty bed frame, lacking even a simple mattress \
+to comfort you. Thankfully, you had no memory of ever sleeping in that thing, even if \
+you just woke up right now. The walls around you were made of stone bricks, with iron \
+bars separating you from the corridor outside your cell. You glance at a small opening \
+above your head and see it similarly closed off with iron bars. It is your only source of \
+light inside this place.
+
+<<if $collected === false>>
+[[Collect any loose items you can|Salvage][$collected = true]]
+<</if>>
+
+:: Salvage
+You collect some loose stuff.
+
+[[Okay...|Opening_3]]
