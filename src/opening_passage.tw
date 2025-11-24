@@ -24,24 +24,38 @@ above your head and see it similarly closed off with iron bars. It is your only 
 light inside this place.
 
 <<if $collected_opening === false>>
-[[Collect any loose items you can (0:10)|Salvage_Opening][$collected_opening = true]]
+<<link "Collect any loose items you can (0:10)" "Salvage_Opening">>
+    <<set $collected_opening = true>>\
+    <<set $time += 10>>\
+    <<if $player.inventory.brick === undefined>>\
+    <<set $player.inventory.brick = 1>>\
+    <<else>>\
+    <<set $player.inventory.brick += 1>>\
+    <</if>>\
+<</link>>
 <</if>>\
 <<if $windowChecked_opening === false>>\
 [[Check out the window (0:01)|Window_Opening][$windowChecked_opening = true]]
+<<link "Check out the window (0:01)" "Window_Opening">>
+    <<set $windowChecked_opening = true>>
+    <<set $time += 1>>
+<</link>>
 <</if>>\
+[[Wait until night.|Opening_4]]
 
 :: Salvage_Opening
-<<set $time += 10>>\
 You find a loose @@color:red;brick@@. You're not sure what to use it for, but \
 you keep it in mind, regardless.
 
 [[Okay...|Prison_Cell_Opening]]
 
 :: Window_Opening
-<<set $time += 1>>\
 It's difficult to see through your window, as grass covers most of the view outside. \
 But it isn't too difficult to make out people in armor doing repetitive actions, and hear \
 their yelling even from where you are. You wonder what they're doing, but you can't \
 exactly go out to check.
 
 [[Okay...|Prison_Cell_Opening]]
+
+:: Opening_4
+Time passes. You're not sure what you're doing here.
