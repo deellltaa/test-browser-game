@@ -12,6 +12,7 @@ Test Story
 :: StorySubtitle
 v0.0.1
 
+Day <<print $day>>
 <<print Math.trunc($time/60)>>:\
 <<if $time%60 < 10>>\
 0<<print $time%60>>\
