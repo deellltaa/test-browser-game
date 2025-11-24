@@ -68,6 +68,7 @@ Nothing here yet... go find some stuff.
         prestige: 0,
         deaths: 0,
         energy: 100,
+        health: 100,
         inventory: {}
     }
     >>

@@ -1,12 +1,16 @@
 :: Opening
 You wake up in a dark cell. You have nothing. No name. No money. No strength. No masters.
-You're all alone. But that doesn't feel like a bad thing.
+
+You know nothing. You remember nothing. You only know of your name. \
+@@color:yellow;<<= $player.name>>@@.
+
 [[Next|Opening_2]]
 
 :: Opening_2
 You groggily push yourself up, ignoring the sharp pains that assault your poor body \
 as you attempt to do so. There was hardly any light around, making it difficult to survey \
 your surroundings. But you could at least tell what was in your immediate vicinity.
+
 [[Next|Prison_Cell_Opening]]
 
 :: Prison_Cell_Opening
@@ -15,7 +19,7 @@ your surroundings. But you could at least tell what was in your immediate vicini
 <</if>>\
 <<if $windowChecked_opening === undefined>>\
 <<set $windowChecked_opening = false>>\
-<</if>>
+<</if>>\
 You are—, or, well, //were//, on a ratty bed frame, lacking even a simple mattress \
 to comfort you. Thankfully, you had no memory of ever sleeping in that thing, even if \
 you just woke up right now. The walls around you were made of stone bricks, with iron \
@@ -23,7 +27,7 @@ bars separating you from the corridor outside your cell. You glance at a small o
 above your head and see it similarly closed off with iron bars. It is your only source of \
 light inside this place.
 
-<<if $collected_opening === false>>
+<<if $collected_opening === false>>\
 <<link "Collect any loose items you can (0:10)" "Salvage_Opening">>
     <<set $collected_opening = true>>\
     <<set $time += 10>>\
@@ -62,4 +66,26 @@ exactly go out to check.
 [[Okay...|Prison_Cell_Opening]]
 
 :: Opening_4
-Time passes. You're not sure what you're doing here.
+Time passes. You're not sure what you're doing here. The pain in your body subsides as you \
+quietly sit on your bed frame. The day goes by as the yelling outside your cell's windows \
+grow louder, and then quieter as the light disappeared.
+
+You were able to see one person in total come to the front of your cell's bars. You didn't \
+recognize them at all. They quietly slid something underneath the iron bars. It was a wooden \
+plate, with some food.
+
+That person had come hours ago. Now, the plate was empty, and you were still hungry.
+
+<<link "An hour passes..." "Opening_5">>
+    <<set time += 60>>
+<</link>>
+
+:: Opening_5
+"Wake up," a rough voice awoke you from your nap. "Take your dinner, slave."
+
+You blink blearily as the sound of another wooden plate scraping across the ground echoes \
+around you.
+
+You stand to collect your food- "Wait." The food is pulled back out.
+
+"Pass me the other plate first."
