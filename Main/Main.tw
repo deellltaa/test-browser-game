@@ -12,6 +12,13 @@ Test Story
 :: StorySubtitle
 v0.0.1
 
+<<print Math.trunc($time/60)>>:\
+<<if $time%60 < 10>>\
+0<<print $time%60>>\
+<<else>>\
+<<print $time%60>>\
+<</if>>\
+
 :: StoryMenu
 <<if $gameStart === true>>
     [[Stats]]
@@ -19,9 +26,21 @@ v0.0.1
 
 :: Stats
 !!Player Stats
-You are <<print $player.name>>
+You are @@color:yellow;<<print $player.name>>@@
 <<if $gameStart === true>>
-You're pretty good!
+Level <<= $player.level>>
+You have <<= $player.skillpoints>> skillpoints left.
+<<if $player.deaths > 0 >>\
+You have died @@color:red;<<= $player.deaths>>@@ times.
+<<else>>\
+\
+<</if>>\
+
+!Skills
+Poking: <<= $player.skills.poking>>
+Tossing: <<= $player.skills.tossing>>
+Punching <<= $player.skills.punching>>
+
 <</if>>
 <<return "Go back">>
 
@@ -29,7 +48,6 @@ You're pretty good!
 <<silently>>
     <<set $player = {
         name:"@@color:red;nobody...@@ for now.",
-        sex:"undefined",
         skills: {
             poking: 0,
             tossing: 0,
@@ -42,4 +60,6 @@ You're pretty good!
     }
     >>
     <<set $gameStart = false>>
+    <<set $time = 0>>
+    <<set $day = 0>>
 <</silently>>

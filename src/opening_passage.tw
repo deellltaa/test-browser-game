@@ -25,6 +25,8 @@ light inside this place.
 <</if>>
 
 :: Salvage
-You collect some loose stuff.
+<<set $time += 10>>\
+You find a loose @@color:red;brick@@. You're not sure what to use it for, but \
+you keep it in mind, regardless.
 
 [[Okay...|Prison_Cell]]

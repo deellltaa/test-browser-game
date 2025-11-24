@@ -14,4 +14,5 @@ you are. What's your name?
 <<set $player.name = "Zion">>
 <</if>>
 <<set $gameStart = true>>
+<<set $time = 240>>
 <</link>>
