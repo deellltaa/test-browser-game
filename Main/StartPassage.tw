@@ -1,0 +1,17 @@
+:: Start
+This game may contain violent content. Be mindful that you, the player, do not attempt \
+anything the player character may do, including beating somebody's head in with a \
+@@color:red;brick@@, \
+or cutting open someone's guts with a @@color:brown;rusty knife@@, or anything else.
+
+@@color:yellow;Now...@@ the @@color:red;game@@ must begin. But it's important to know who \
+you are. What's your name?
+
+<<textbox "$player.name" "Zion">>
+
+<<link "Start the game!" "Opening">>
+<<if $player.name === "">>
+<<set $player.name = "Zion">>
+<</if>>
+<<set $gameStart = true>>
+<</link>>
