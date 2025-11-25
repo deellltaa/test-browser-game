@@ -1,5 +1,8 @@
 :: Opening
-You wake up in a dark cell. You have nothing. No name. No money. No strength. No masters.
+<<silently>>\
+    <<set $current_location = 'prison_cell'>>
+<</silently>>\
+You wake up in a dark cell. You have nothing. No money. No strength. No masters.
 
 You know nothing. You remember nothing. You only know of your name. \
 @@color:yellow;<<= $player.name>>@@.
@@ -89,3 +92,8 @@ around you.
 You stand to collect your food- "Wait." The food is pulled back out.
 
 "Pass me the other plate first."
+
+<<link "\"No.\" @@color:red;(Starts combat encounter)@@" "Combat_Encounter_Start">>
+    <<set $enemy_type = 'guard'>>
+    <<set $previous_passage = passage()>> <!--Not really necessary at the moment. Good to keep in mind. -->
+<</link>>

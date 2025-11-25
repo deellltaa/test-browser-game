@@ -1,0 +1,55 @@
+:: Combat_Encounter_Start
+<<silently>>\
+    <<if ($fight_started === undefined) or ($fight_started === false) >>
+        <<if $enemy_type === 'guard'>>
+            <<set $enemy = {
+                type: 'guard',
+                max_hp: 30,
+                health: 30,
+                damage: 3
+            }>>
+        <</if>>
+    <</if>>
+<</silently>>\
+\
+<<if $current_location === 'prison_cell'>>\
+    <<if $previous_passage === 'Opening_5'>>\
+        The <<= $enemy.type>> walks into the prison cell with a sneer on his face. The door is open behind him, yet the \
+        enemy blocks your path. "You should've listened, slave."
+
+        [[Next|Combat][$fight_started = true]]
+    <</if>>\
+<</if>>\
+
+:: Combat
+\
+<<if $enemy.health gt $enemy.max_hp*0.8>>\
+    The <<= $enemy.type>> is still in good shape.
+<<elseif $enemy.health gt $enemy.max_hp*0.5>>\
+    The <<= $enemy.type>> is tiring.
+<<elseif $enemy.health gt $enemy.max_hp*0.2>>\
+    The <<= $enemy.type>> is exhausted.
+<<else>>\
+    The <<= $enemy.type>> will fall over any second now.
+<</if>>\
+<<if $enemy.health lte 0>>\
+    <<set $fight_started = false>>\
+<</if>>\
+<<if $fight_started === true>>
+    <<link "Punch them." "Combat">>
+        <<set _dmg = 0>>
+        <<<<for _x to 0; _x lt ($player.skills.punching + 1); _x++>>>
+            <<set _dmg += random(1, 2)>>
+        <</for>>>>
+        <<set $enemy.health -= _dmg>>
+    <</link>>
+
+    <<else>>
+    <<link "Finish them." "Combat_Over">>
+        <<set $combat_status = "won">>
+    <</link>>
+<</if>>
+
+:: Combat_Over
+WIP
+
