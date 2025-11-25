@@ -1,17 +1,4 @@
 :: Combat_Encounter_Start
-<<silently>>\
-    <<if ($fight_started === undefined) or ($fight_started === false) >>
-        <<if $enemy_type === 'guard'>>
-            <<set $enemy = {
-                type: 'guard',
-                max_hp: 30,
-                health: 30,
-                damage: 3
-            }>>
-        <</if>>
-    <</if>>
-<</silently>>\
-\
 <<if $current_location === 'prison_cell'>>\
     <<if $previous_passage === 'Opening_5'>>\
         The <<= $enemy.type>> walks into the prison cell with a sneer on his face. The door is open behind him, yet the \
@@ -46,10 +33,10 @@
 
     <<else>>
     <<link "Finish them." "Combat_Over">>
+        <<combat_finish>>
         <<set $combat_status = "won">>
     <</link>>
 <</if>>
 
 :: Combat_Over
 WIP
-

@@ -94,6 +94,6 @@ You stand to collect your food- "Wait." The food is pulled back out.
 "Pass me the other plate first."
 
 <<link "\"No.\" @@color:red;(Starts combat encounter)@@" "Combat_Encounter_Start">>
-    <<set $enemy_type = 'guard'>>
+    <<combat_widget "guard">>
     <<set $previous_passage = passage()>> <!--Not really necessary at the moment. Good to keep in mind. -->
 <</link>>

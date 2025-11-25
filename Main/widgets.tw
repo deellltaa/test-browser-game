@@ -1,0 +1,21 @@
+:: Combat_Widget [widget]
+<<widget 'combat_widget'>>
+    <<nobr>>
+        <!-- Args[0] should be enemy type. -->
+        <<if $args[0] is "guard">>
+            <<set $enemy = {
+                type: 'guard',
+                max_hp: 30,
+                health: 30,
+                damage: 3
+            }>>
+        <</if>>
+    <</nobr>>
+<</widget>>
+
+:: Combat_Finish [widget]
+<<widget 'combat_finish'>>
+    <<nobr>>
+        <<set $enemy = undefined>>
+    <</nobr>>
+<</widget>>
