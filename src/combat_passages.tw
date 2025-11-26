@@ -20,21 +20,19 @@
     The <<= $enemy.type>> will fall over any second now.
 <</if>>\
 <<if $enemy.health lte 0>>\
+    ... And it looks like now's your chance. End them.
     <<set $fight_started = false>>\
 <</if>>\
 <<if $fight_started === true>>
-    <<link "Punch them." "Combat">>
-        <<set _dmg = 0>>
-        <<<<for _x to 0; _x lt ($player.skills.punching + 1); _x++>>>
-            <<set _dmg += random(1, 2)>>
-        <</for>>>>
-        <<set $enemy.health -= _dmg>>
-    <</link>>
+    The <<= $enemy.type>> is preparing to attack...
 
+    <<link "Punch them." "Combat">>
+        <<do_damage "punching">>
+    <</link>>
     <<else>>
     <<link "Finish them." "Combat_Over">>
         <<combat_finish>>
-        <<set $combat_status = "won">>
+        <<set $opening_win = true>>
     <</link>>
 <</if>>
 

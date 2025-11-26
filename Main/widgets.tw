@@ -19,3 +19,19 @@
         <<set $enemy = undefined>>
     <</nobr>>
 <</widget>>
+
+:: Do_Damage [widget]
+<<widget 'do_damage'>>                                  
+    <<nobr>>
+    <!-- Should only be called if there is an $enemy in front. 
+         Might have to restructure if I want more than one enemy
+         in an encounter...                                     -->
+        <<if $args[0] is "punching">>
+            <<set _dmg = 0>>
+            <<for _i = 0; _i <= $player.skills.punching; _i++>>
+                <<set _dmg += random(1,2)>>
+            <</for>>
+            <<set $enemy.health -= _dmg>>
+        <</if>>
+    <</nobr>>
+<</widget>>

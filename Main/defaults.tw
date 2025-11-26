@@ -1,15 +1,12 @@
-:: Variables
-<<silently>>
-    <<set $player = {
-        name:"John",
-        cash: 0,
-        level: 1
-    }
-    >>
-
-    <<set $skills = {
-        moneymaking: 0,
-        protection: 1,
-        thievery: 0
-    }>>
-<</silently>>
+:: Inventory
+    !Inventory
+    <<nobr>>
+        <<if JSON.stringify($player.inventory) === "{}">>
+            Nothing here yet. Go find some items...
+        <<else>>
+            <<set _keys = Object.keys($player.inventory)>>
+            <<for _i = 0; _i < _keys.length; _i++>>
+                <<= $player.inventory[_keys[_i]]>>x <<=_keys[_i].toUpperFirst()>>(s)
+            <</for>>
+    <</if>>
+    <</nobr>>
