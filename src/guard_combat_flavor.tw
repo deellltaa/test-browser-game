@@ -22,3 +22,36 @@
         @@color:lime;The <<= $enemy.type>> will fall over any second now.@@
     <</if>>
 <</nobr>>
+
+:: Guard_Combat_Decisions
+<!-- Decision-making passage for the guard type enemy. -->
+<<nobr>>
+    <<if $prev_enemy_action === undefined or $prev_enemy_action === 'spear' or $prev_enemy_action === 'punch2'>>
+        <<= either(
+            "The <<= $enemy.type>> is winding up for an attack.",
+            "The <<= $enemy.type>> is readying themself."
+        )>>
+        <<set $prev_enemy_action = "rest">>
+    <<else>>
+        <<if random(1,10) lte 9>>
+            <<= either(
+                "The <<= $enemy.type>> smacks you with a backhand.",
+                "The <<= $enemy.type>> punches you in the face."
+            )>>
+            <<set _dmg = random(1,2) + random(1,2) + random(1,2) + random(1,2) + $enemy.damage>>
+            <<if $prev_enemy_action === 'punch'>>
+                <<set $prev_enemy_action = 'punch2'>>
+            <<else>>
+                <<set $prev_enemy_action = 'punch'>>
+            <</if>>
+        <<else>>
+            <<= either(
+                "The <<= $enemy.type>> attacks you with their spear.",
+                "The <<= $enemy.type>> stabs you with their spear."
+            )>>
+            <<set _dmg = random(1,12) + random(1,12) + random(1,12) + $enemy.damage>>
+            <<set $prev_enemy_action = "spear">>
+        <</if>>
+        <<set $player.health -= _dmg>>
+    <</if>>
+<</nobr>>

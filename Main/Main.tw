@@ -58,6 +58,7 @@ You have died @@color:red;<<= $player.deaths>>@@ times.
         deaths: 0,
         energy: 100,
         health: 100,
+        max_health: 100,
         inventory: {}
     }
     >>

@@ -15,7 +15,8 @@
     <<set $fight_started = false>>\
 <</if>>\
 <<if $fight_started === true>>\
-    The <<= $enemy.type>> is preparing to attack...
+    <<include "Guard_Combat_Decisions">>
+    <<= $player.health>>
 
     <<link "Punch them." "Combat">>
         <<do_damage "punching">>
