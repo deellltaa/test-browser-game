@@ -30,16 +30,31 @@
 <<else>>
     <<nobr>>
     <<if $combat_win === true>>
-        <<<link "Finish them." "Combat_Over">>
+        <<<link "Finish them." "Combat_Over_Victory">>
             <<combat_finish>>
         <</link>>>
     <<else>>
-        <<link "@@color:red;You can't do anything.@@" "Combat_Over">>
+        <<link "@@color:red;You can't do anything.@@" "Combat_Over_Defeat">>
             <<combat_finish>>
         <</link>>
     <</if>>
     <</nobr>>
 <</if>>
 
-:: Combat_Over
+:: Combat_Over_Victory
 WIP
+
+:: Combat_Over_Defeat
+<<nobr>>
+    <<if $previous_passage === 'Opening_5'>>
+        The guard regards you with a sneer. You glare up at them weakly as they raise their spear point above your head.<br>
+        <br>
+        "Do your worst," you say, as if having bravado in the face of death is a good thing.<br>
+        <br>
+        With a laugh, the guard stabs down into your head, @@color:red;killing you instantly.@@<br>
+        <br>
+        <<link "... Next?" "Opening_6">>
+            <<death_handler>>
+        <</link>>
+    <</if>>
+<</nobr>>
