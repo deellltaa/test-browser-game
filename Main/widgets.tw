@@ -18,6 +18,7 @@
     <<nobr>>
         <<set $enemy = undefined>>
         <<set $prev_enemy_action = undefined>>
+        <<set $combat_win = undefined>>
     <</nobr>>
 <</widget>>
 

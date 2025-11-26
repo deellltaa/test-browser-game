@@ -13,19 +13,32 @@
 <<if $enemy.health lte 0>>\
     ... And it looks like now's your chance. End them.
     <<set $fight_started = false>>\
+    <<set $combat_win = true>>\
+<</if>>\
+<<if $player.health lte 0>>\
+    ... You fall to your back. @@color:red;It's over.@@
+    <<set $fight_started = false>>\
+    <<set $combat_win = false>>\
 <</if>>\
 <<if $fight_started === true>>\
     <<include "Guard_Combat_Decisions">>
-    <<= $player.health>>
+    <<= $player.health>>\
 
     <<link "Punch them." "Combat">>
         <<do_damage "punching">>
     <</link>>
 <<else>>
-    <<link "Finish them." "Combat_Over">>
-        <<combat_finish>>
-        <<set $opening_win = true>>
-    <</link>>
+    <<nobr>>
+    <<if $combat_win === true>>
+        <<<link "Finish them." "Combat_Over">>
+            <<combat_finish>>
+        <</link>>>
+    <<else>>
+        <<link "@@color:red;You can't do anything.@@" "Combat_Over">>
+            <<combat_finish>>
+        <</link>>
+    <</if>>
+    <</nobr>>
 <</if>>
 
 :: Combat_Over

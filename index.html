@@ -197,6 +197,7 @@ you are. What&#39;s your name?
     &lt;&lt;nobr&gt;&gt;
         &lt;&lt;set $enemy = undefined&gt;&gt;
         &lt;&lt;set $prev_enemy_action = undefined&gt;&gt;
+        &lt;&lt;set $combat_win = undefined&gt;&gt;
     &lt;&lt;/nobr&gt;&gt;
 &lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="10" name="Do_Damage" tags="widget" position="1225,100" size="100,100">&lt;&lt;widget &#39;do_damage&#39;&gt;&gt;                                  
     &lt;&lt;nobr&gt;&gt;
@@ -228,19 +229,32 @@ you are. What&#39;s your name?
 &lt;&lt;if $enemy.health lte 0&gt;&gt;\
     ... And it looks like now&#39;s your chance. End them.
     &lt;&lt;set $fight_started = false&gt;&gt;\
+    &lt;&lt;set $combat_win = true&gt;&gt;\
+&lt;&lt;/if&gt;&gt;\
+&lt;&lt;if $player.health lte 0&gt;&gt;\
+    ... You fall to your back. @@color:red;It&#39;s over.@@
+    &lt;&lt;set $fight_started = false&gt;&gt;\
+    &lt;&lt;set $combat_win = false&gt;&gt;\
 &lt;&lt;/if&gt;&gt;\
 &lt;&lt;if $fight_started === true&gt;&gt;\
     &lt;&lt;include &quot;Guard_Combat_Decisions&quot;&gt;&gt;
-    &lt;&lt;= $player.health&gt;&gt;
+    &lt;&lt;= $player.health&gt;&gt;\
 
     &lt;&lt;link &quot;Punch them.&quot; &quot;Combat&quot;&gt;&gt;
         &lt;&lt;do_damage &quot;punching&quot;&gt;&gt;
     &lt;&lt;/link&gt;&gt;
 &lt;&lt;else&gt;&gt;
-    &lt;&lt;link &quot;Finish them.&quot; &quot;Combat_Over&quot;&gt;&gt;
-        &lt;&lt;combat_finish&gt;&gt;
-        &lt;&lt;set $opening_win = true&gt;&gt;
-    &lt;&lt;/link&gt;&gt;
+    &lt;&lt;nobr&gt;&gt;
+    &lt;&lt;if $combat_win === true&gt;&gt;
+        &lt;&lt;&lt;link &quot;Finish them.&quot; &quot;Combat_Over&quot;&gt;&gt;
+            &lt;&lt;combat_finish&gt;&gt;
+        &lt;&lt;/link&gt;&gt;&gt;
+    &lt;&lt;else&gt;&gt;
+        &lt;&lt;link &quot;@@color:red;You can&#39;t do anything.@@&quot; &quot;Combat_Over&quot;&gt;&gt;
+            &lt;&lt;combat_finish&gt;&gt;
+        &lt;&lt;/link&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/nobr&gt;&gt;
 &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="Combat_Over" tags="" position="475,225" size="100,100">WIP</tw-passagedata><tw-passagedata pid="15" name="Guard_In_Combat" tags="" position="600,225" size="100,100">&lt;&lt;nobr&gt;&gt;
     &lt;&lt;if $enemy.health gt $enemy.max_hp*0.8&gt;&gt;
         &lt;&lt;= either(
