@@ -35,3 +35,12 @@
         <</if>>
     <</nobr>>
 <</widget>>
+
+:: Combat_Flavor_Driver [widget]
+<<widget 'cf_driver'>>
+    <<nobr>>
+        <<if $enemy.type === 'guard'>>
+            <<include 'Guard_In_Combat'>>
+        <</if>>
+    <</nobr>>
+<</widget>>

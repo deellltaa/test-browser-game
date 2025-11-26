@@ -1,0 +1,24 @@
+:: Guard_In_Combat
+<<nobr>>
+    <<if $enemy.health gt $enemy.max_hp*0.8>>
+        <<= either(
+            "The <<= $enemy.type>> is @@color:red;still in good shape@@.",
+            "The <<= $enemy.type>> is @@color:red;sneering at you@@.",
+            "The <<= $enemy.type>> seems to be happy to be @@color:red;given a chance to hurt you.@@"
+        )>>
+    <<elseif $enemy.health gt $enemy.max_hp*0.5>>
+        <<= either(
+            "The <<= $enemy.type>> is @@color:yellow;tiring.@@",
+            "The <<= $enemy.type>> tries to keep a tough facade, @@color:yellow;but you're wearing at him.@@",
+            "The <<= $enemy.type>>'s more @@color:yellow;cautious now.@@    "
+        )>>
+    <<elseif $enemy.health gt $enemy.max_hp*0.2>>
+        <<= either(
+            "The <<= $enemy.type>> is @@color:blue;exhausted.@@",
+            "The <<= $enemy.type>> is @@color:blue;lacking the energy to even be angry.@@",
+            "The <<= $enemy.type>> is @@color:blue;losing control.@@"
+        )>>
+    <<else>>
+        @@color:lime;The <<= $enemy.type>> will fall over any second now.@@
+    <</if>>
+<</nobr>>

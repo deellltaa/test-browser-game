@@ -209,28 +209,25 @@ you are. What&#39;s your name?
             &lt;&lt;set $enemy.health -= _dmg&gt;&gt;
         &lt;&lt;/if&gt;&gt;
     &lt;&lt;/nobr&gt;&gt;
-&lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="Combat_Encounter_Start" tags="" position="100,225" size="100,100">&lt;&lt;if $current_location === &#39;prison_cell&#39;&gt;&gt;\
+&lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="Combat_Flavor_Driver" tags="widget" position="100,225" size="100,100">&lt;&lt;widget &#39;cf_driver&#39;&gt;&gt;
+    &lt;&lt;nobr&gt;&gt;
+        &lt;&lt;if $enemy.type === &#39;guard&#39;&gt;&gt;
+            &lt;&lt;include &#39;Guard_In_Combat&#39;&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/nobr&gt;&gt;
+&lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="Combat_Encounter_Start" tags="" position="225,225" size="100,100">&lt;&lt;if $current_location === &#39;prison_cell&#39;&gt;&gt;\
     &lt;&lt;if $previous_passage === &#39;Opening_5&#39;&gt;&gt;\
         The &lt;&lt;= $enemy.type&gt;&gt; walks into the prison cell with a sneer on his face. The door is open behind him, yet the \
         enemy blocks your path. &quot;You should&#39;ve listened, slave.&quot;
 
         [[Next|Combat][$fight_started = true]]
     &lt;&lt;/if&gt;&gt;\
-&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="12" name="Combat" tags="" position="225,225" size="100,100">\
-&lt;&lt;if $enemy.health gt $enemy.max_hp*0.8&gt;&gt;\
-    The &lt;&lt;= $enemy.type&gt;&gt; is still in good shape.
-&lt;&lt;elseif $enemy.health gt $enemy.max_hp*0.5&gt;&gt;\
-    The &lt;&lt;= $enemy.type&gt;&gt; is tiring.
-&lt;&lt;elseif $enemy.health gt $enemy.max_hp*0.2&gt;&gt;\
-    The &lt;&lt;= $enemy.type&gt;&gt; is exhausted.
-&lt;&lt;else&gt;&gt;\
-    The &lt;&lt;= $enemy.type&gt;&gt; will fall over any second now.
-&lt;&lt;/if&gt;&gt;\
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="13" name="Combat" tags="" position="350,225" size="100,100">&lt;&lt;cf_driver&gt;&gt;
 &lt;&lt;if $enemy.health lte 0&gt;&gt;\
     ... And it looks like now&#39;s your chance. End them.
     &lt;&lt;set $fight_started = false&gt;&gt;\
 &lt;&lt;/if&gt;&gt;\
-&lt;&lt;if $fight_started === true&gt;&gt;
+&lt;&lt;if $fight_started === true&gt;&gt;\
     The &lt;&lt;= $enemy.type&gt;&gt; is preparing to attack...
 
     &lt;&lt;link &quot;Punch them.&quot; &quot;Combat&quot;&gt;&gt;
@@ -241,7 +238,29 @@ you are. What&#39;s your name?
         &lt;&lt;combat_finish&gt;&gt;
         &lt;&lt;set $opening_win = true&gt;&gt;
     &lt;&lt;/link&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="Combat_Over" tags="" position="350,225" size="100,100">WIP</tw-passagedata><tw-passagedata pid="14" name="Opening" tags="" position="475,225" size="100,100">&lt;&lt;silently&gt;&gt;\
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="Combat_Over" tags="" position="475,225" size="100,100">WIP</tw-passagedata><tw-passagedata pid="15" name="Guard_In_Combat" tags="" position="600,225" size="100,100">&lt;&lt;nobr&gt;&gt;
+    &lt;&lt;if $enemy.health gt $enemy.max_hp*0.8&gt;&gt;
+        &lt;&lt;= either(
+            &quot;The &lt;&lt;= $enemy.type&gt;&gt; is @@color:red;still in good shape@@.&quot;,
+            &quot;The &lt;&lt;= $enemy.type&gt;&gt; is @@color:red;sneering at you@@.&quot;,
+            &quot;The &lt;&lt;= $enemy.type&gt;&gt; seems to be happy to be @@color:red;given a chance to hurt you.@@&quot;
+        )&gt;&gt;
+    &lt;&lt;elseif $enemy.health gt $enemy.max_hp*0.5&gt;&gt;
+        &lt;&lt;= either(
+            &quot;The &lt;&lt;= $enemy.type&gt;&gt; is @@color:yellow;tiring.@@&quot;,
+            &quot;The &lt;&lt;= $enemy.type&gt;&gt; tries to keep a tough facade, @@color:yellow;but you&#39;re wearing at him.@@&quot;,
+            &quot;The &lt;&lt;= $enemy.type&gt;&gt;&#39;s more @@color:yellow;cautious now.@@    &quot;
+        )&gt;&gt;
+    &lt;&lt;elseif $enemy.health gt $enemy.max_hp*0.2&gt;&gt;
+        &lt;&lt;= either(
+            &quot;The &lt;&lt;= $enemy.type&gt;&gt; is @@color:blue;exhausted.@@&quot;,
+            &quot;The &lt;&lt;= $enemy.type&gt;&gt; is @@color:blue;lacking the energy to even be angry.@@&quot;,
+            &quot;The &lt;&lt;= $enemy.type&gt;&gt; is @@color:blue;losing control.@@&quot;
+        )&gt;&gt;
+    &lt;&lt;else&gt;&gt;
+        @@color:lime;The &lt;&lt;= $enemy.type&gt;&gt; will fall over any second now.@@
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="Opening" tags="" position="725,225" size="100,100">&lt;&lt;silently&gt;&gt;\
     &lt;&lt;set $current_location = &#39;prison_cell&#39;&gt;&gt;
 &lt;&lt;/silently&gt;&gt;\
 You wake up in a dark cell. You have nothing. No money. No strength. No masters.
@@ -249,11 +268,11 @@ You wake up in a dark cell. You have nothing. No money. No strength. No masters.
 You know nothing. You remember nothing. You only know of your name. \
 @@color:yellow;&lt;&lt;= $player.name&gt;&gt;@@.
 
-[[Next|Opening_2]]</tw-passagedata><tw-passagedata pid="15" name="Opening_2" tags="" position="600,225" size="100,100">You groggily push yourself up, ignoring the sharp pains that assault your poor body \
+[[Next|Opening_2]]</tw-passagedata><tw-passagedata pid="17" name="Opening_2" tags="" position="850,225" size="100,100">You groggily push yourself up, ignoring the sharp pains that assault your poor body \
 as you attempt to do so. There was hardly any light around, making it difficult to survey \
 your surroundings. But you could at least tell what was in your immediate vicinity.
 
-[[Next|Prison_Cell_Opening]]</tw-passagedata><tw-passagedata pid="16" name="Prison_Cell_Opening" tags="" position="725,225" size="100,100">&lt;&lt;if $collected_opening === undefined&gt;&gt;\
+[[Next|Prison_Cell_Opening]]</tw-passagedata><tw-passagedata pid="18" name="Prison_Cell_Opening" tags="" position="975,225" size="100,100">&lt;&lt;if $collected_opening === undefined&gt;&gt;\
 &lt;&lt;set $collected_opening = false&gt;&gt;\
 &lt;&lt;/if&gt;&gt;\
 &lt;&lt;if $windowChecked_opening === undefined&gt;&gt;\
@@ -285,18 +304,18 @@ light inside this place.
 &lt;&lt;/if&gt;&gt;\
 &lt;&lt;link &quot;Wait until night.&quot; &quot;Opening_4&quot;&gt;&gt;
     &lt;&lt;set $time = 1200&gt;&gt;
-&lt;&lt;/link&gt;&gt;\</tw-passagedata><tw-passagedata pid="17" name="Salvage_Opening" tags="" position="850,225" size="100,100">You find a loose @@color:red;brick@@. You&#39;re not sure what to use it for, but \
+&lt;&lt;/link&gt;&gt;\</tw-passagedata><tw-passagedata pid="19" name="Salvage_Opening" tags="" position="1100,225" size="100,100">You find a loose @@color:red;brick@@. You&#39;re not sure what to use it for, but \
 you keep it in mind, regardless.
 
 @@color:yellow;You&#39;ve discovered Bricks!@@ You can now keep track of them \
 in your inventory. (Check your stats!)
 
-[[Okay...|Prison_Cell_Opening]]</tw-passagedata><tw-passagedata pid="18" name="Window_Opening" tags="" position="975,225" size="100,100">It&#39;s difficult to see through your window, as grass covers most of the view outside. \
+[[Okay...|Prison_Cell_Opening]]</tw-passagedata><tw-passagedata pid="20" name="Window_Opening" tags="" position="1225,225" size="100,100">It&#39;s difficult to see through your window, as grass covers most of the view outside. \
 But it isn&#39;t too difficult to make out people in armor doing repetitive actions, and hear \
 their yelling even from where you are. You wonder what they&#39;re doing, but you can&#39;t \
 exactly go out to check.
 
-[[Okay...|Prison_Cell_Opening]]</tw-passagedata><tw-passagedata pid="19" name="Opening_4" tags="" position="1100,225" size="100,100">Time passes. You&#39;re not sure what you&#39;re doing here. The pain in your body subsides as you \
+[[Okay...|Prison_Cell_Opening]]</tw-passagedata><tw-passagedata pid="21" name="Opening_4" tags="" position="100,350" size="100,100">Time passes. You&#39;re not sure what you&#39;re doing here. The pain in your body subsides as you \
 quietly sit on your bed frame. The day goes by as the yelling outside your cell&#39;s windows \
 grow louder, and then quieter as the light disappeared.
 
@@ -308,7 +327,7 @@ That person had come hours ago. Now, the plate was empty, and you were still hun
 
 &lt;&lt;link &quot;An hour passes...&quot; &quot;Opening_5&quot;&gt;&gt;
     &lt;&lt;set time += 60&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="20" name="Opening_5" tags="" position="1225,225" size="100,100">&quot;Wake up,&quot; a rough voice awoke you from your nap. &quot;Take your dinner, slave.&quot;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="Opening_5" tags="" position="225,350" size="100,100">&quot;Wake up,&quot; a rough voice awoke you from your nap. &quot;Take your dinner, slave.&quot;
 
 You blink blearily as the sound of another wooden plate scraping across the ground echoes \
 around you.

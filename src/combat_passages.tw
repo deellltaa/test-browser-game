@@ -9,21 +9,12 @@
 <</if>>\
 
 :: Combat
-\
-<<if $enemy.health gt $enemy.max_hp*0.8>>\
-    The <<= $enemy.type>> is still in good shape.
-<<elseif $enemy.health gt $enemy.max_hp*0.5>>\
-    The <<= $enemy.type>> is tiring.
-<<elseif $enemy.health gt $enemy.max_hp*0.2>>\
-    The <<= $enemy.type>> is exhausted.
-<<else>>\
-    The <<= $enemy.type>> will fall over any second now.
-<</if>>\
+<<cf_driver>>
 <<if $enemy.health lte 0>>\
     ... And it looks like now's your chance. End them.
     <<set $fight_started = false>>\
 <</if>>\
-<<if $fight_started === true>>
+<<if $fight_started === true>>\
     The <<= $enemy.type>> is preparing to attack...
 
     <<link "Punch them." "Combat">>
