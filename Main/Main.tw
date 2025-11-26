@@ -28,7 +28,7 @@ Day <<print $day>>
 <</if>>
 
 :: Stats
-!!Player Stats
+!Player Stats
 You are @@color:yellow;<<print $player.name>>@@
 <<if $gameStart === true>>
 Level <<= $player.level>>
@@ -39,11 +39,7 @@ You have died @@color:red;<<= $player.deaths>>@@ times.
 \
 <</if>>\
 
-!Skills
-Poking: <<= $player.skills.poking>>
-Tossing: <<= $player.skills.tossing>>
-Punching <<= $player.skills.punching>>
-\
+<<include "Skills">>
 <<include "Inventory">>
 <</if>>
 <<return "Go back">>

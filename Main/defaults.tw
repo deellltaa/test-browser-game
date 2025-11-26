@@ -1,5 +1,5 @@
 :: Inventory
-    !Inventory
+    !!Inventory
     <<nobr>>
         <<if JSON.stringify($player.inventory) === "{}">>
             Nothing here yet. Go find some items...
@@ -9,4 +9,16 @@
                 <<= $player.inventory[_keys[_i]]>>x <<=_keys[_i].toUpperFirst()>>(s)
             <</for>>
     <</if>>
+    <</nobr>>
+
+:: Skills
+    !!Skills
+    <<nobr>>
+    <<set _keys = Object.keys($player.skills)>>
+        <<for _i to 0; _i lt _keys.length; _i++>>
+            <<= _keys[_i].toUpperFirst()>>: <<= $player.skills[_keys[_i]]>>
+                <<if _i !== (_keys.length - 1)>>
+                    <br>
+                <</if>>
+        <</for>>
     <</nobr>>
