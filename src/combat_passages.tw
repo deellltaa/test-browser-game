@@ -22,17 +22,23 @@
 <</if>>\
 <<if $fight_started === true>>\
     <<include "Guard_Combat_Decisions">>
-    <<= $player.health>>\
 
     <<link "Punch them." "Combat">>
         <<do_damage "punching">>
     <</link>>
+    <<nobr>>
+    <<if $player.inventory.brick gte 1>>
+        <<link  "Toss a brick." "Combat">>
+            <<do_damage "tossing" "brick">>
+        <</link>>
+    <</if>>
+    <</nobr>>
 <<else>>
     <<nobr>>
     <<if $combat_win === true>>
-        <<<link "Finish them." "Combat_Over_Victory">>
+        <<link "Finish them." "Combat_Over_Victory">>
             <<combat_finish>>
-        <</link>>>
+        <</link>>
     <<else>>
         <<link "@@color:red;You can't do anything.@@" "Combat_Over_Defeat">>
             <<combat_finish>>
@@ -40,6 +46,8 @@
     <</if>>
     <</nobr>>
 <</if>>
+
+
 
 :: Combat_Over_Victory
 WIP

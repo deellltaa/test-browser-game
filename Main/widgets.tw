@@ -28,18 +28,29 @@
     <!-- Should only be called if there is an $enemy in front. 
          Might have to restructure if I want more than one enemy
          in an encounter...                                     -->
+        <<if $last_player_action === undefined>>
+            <<set $last_player_action = 0>>
+        <</if>>
+        <<set _dmg = 0>>
         <<if $args[0] is "punching">>
-            <<set _dmg = 0>>
             <<for _i = 0; _i <= $player.skills.punching; _i++>>
                 <<set _dmg += random(1,2)>>
             <</for>>
+            <<set $last_player_action = 1>>
             <<set $enemy.health -= _dmg>>
+        <<elseif $args[0] is 'tossing'>>
+            <<for _i = 0; _i <= $player.skills.tossing; _i++>>
+                <<set _dmg += random(1,4)>>
+            <</for>>
+            <<set $last_player_action = 2>>
+            <<set $enemy.health -= _dmg + $TOSSING_ITEM_MODIFIERS[$args[1]]>>
         <</if>>
     <</nobr>>
 <</widget>>
 
 :: Combat_Flavor_Driver [widget]
 <<widget 'cf_driver'>>
+    <<include 'Player_Health_Indicator'>>
     <<nobr>>
         <<if $enemy.type === 'guard'>>
             <<include 'Guard_In_Combat'>>

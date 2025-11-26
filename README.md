@@ -9,10 +9,17 @@ Most of this will probably be structured poorly until I get into the groove of t
 If interested in playing as is (there is not much to even play!), download the index.html and run it. It should contain the things you need to actually play the game.
 
 Todo:
+    
     - Implement the entirety of a loop
+    
     - Properly implement combat
+    
     - Stat evolutions
+    
     - Proper character creation and descriptions
+    
     - Overarching story
+    
     - Traversable locations
+    
     - Random events

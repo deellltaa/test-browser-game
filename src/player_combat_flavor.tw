@@ -1,0 +1,38 @@
+<!--
+Legend for integer values for player combat: 
+    0 is default, no action
+    1 is Punching
+    2 is Tossing
+    3 is Poking
+    
+    Add more if this evolves past those three stats.
+-->
+
+:: Player_Health_Indicator
+<<nobr>>
+    <<if $player.health gte $player.max_health * 0.8>>
+        <<= either(
+            "You're still doing good. @@color:lime;You have plenty left in the tank.@@",
+            "Your vitality is completely fine. @@color:lime;You won't go down quick.@@",
+            "You're ready for this. @@color:lime;You are full of energy.@@"
+        )>>
+    <<elseif $player.health gte $player.max_health * 0.5>>
+        <<= either(
+            "You've taken some damage, @@color:blue;but it should be fine.@@",
+            "The <<= $enemy.type>> hits hard, @@color:blue;but it's nothing you can't handle.@@",
+            "You scowl at the <<= $enemy.type>>. They're strong, but @@color:blue;you can still take them on.@@"
+        )>>
+    <<elseif $player.health gte $player.max_health * 0.2>>
+        <<= either(
+            "It hurts. Your body is tired and your wounds are mounting. @@color:yellow;But you must win.@@",
+            "Blood leaks from your wounds. You are tiring, but @@color:yellow;fire still burns in your eyes.@@",
+            "You pant heavily as you glare at the <<= $enemy.type>>. @@color:yellow;Losing cannot be an option.@@"
+        )>>
+    <<else>>
+        <<= either(
+            "You can't do it anymore. @@color:red;You're exhausted.@@",
+            "You ready yourself in defiance, but @@color:red;you can no longer hide how weak you are.@@",
+            "You stand, and yet you cannot fight for longer. @@color:red;Exhaustion seeps into your bones.@@"
+        )>>
+    <</if>>
+<</nobr>>

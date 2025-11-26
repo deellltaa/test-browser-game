@@ -22,3 +22,11 @@
                 <</if>>
         <</for>>
     <</nobr>>
+
+:: Equipment_Damage_Mods
+<!-- Call on init. Flat damage added after dice rolls. -->
+<<silently>>
+    <<set $TOSSING_ITEM_MODIFIERS = {
+        brick: 6
+    }>>
+<</silently>>
