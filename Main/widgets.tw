@@ -14,9 +14,10 @@
 <</widget>>
 
 :: Combat_Finish [widget]
-<<widget 'combat_finish'>>
+<<widget 'combat_finish'>> <!-- Clean up enemy specific vars. -->
     <<nobr>>
         <<set $enemy = undefined>>
+        <<set $prev_enemy_action = undefined>>
     <</nobr>>
 <</widget>>
 

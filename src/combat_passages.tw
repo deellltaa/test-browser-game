@@ -21,7 +21,7 @@
     <<link "Punch them." "Combat">>
         <<do_damage "punching">>
     <</link>>
-    <<else>>
+<<else>>
     <<link "Finish them." "Combat_Over">>
         <<combat_finish>>
         <<set $opening_win = true>>
