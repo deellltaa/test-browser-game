@@ -33,7 +33,7 @@ You are @@color:yellow;<<print $player.name>>@@
 <<if $gameStart === true>>
 Level <<= $player.level>>
 You have <<= $player.skillpoints>> skillpoints left.
-<<if $player.deaths > 0 >>\
+<<if $player.deaths gt 0 >>\
 You have died @@color:red;<<= $player.deaths>>@@ times.
 <<else>>\
 \

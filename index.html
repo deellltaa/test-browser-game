@@ -117,7 +117,7 @@ You are @@color:yellow;&lt;&lt;print $player.name&gt;&gt;@@
 &lt;&lt;if $gameStart === true&gt;&gt;
 Level &lt;&lt;= $player.level&gt;&gt;
 You have &lt;&lt;= $player.skillpoints&gt;&gt; skillpoints left.
-&lt;&lt;if $player.deaths &gt; 0 &gt;&gt;\
+&lt;&lt;if $player.deaths gt 0 &gt;&gt;\
 You have died @@color:red;&lt;&lt;= $player.deaths&gt;&gt;@@ times.
 &lt;&lt;else&gt;&gt;\
 \
@@ -241,6 +241,7 @@ you are. What&#39;s your name?
     &lt;&lt;/nobr&gt;&gt;
 &lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="Death_Handler" tags="widget" position="350,225" size="100,100">&lt;&lt;widget &#39;death_handler&#39;&gt;&gt;
     &lt;&lt;nobr&gt;&gt;
+        &lt;&lt;set $player.deaths += 1&gt;&gt;
         &lt;&lt;set $time = 240&gt;&gt;
         &lt;&lt;set $day = 0&gt;&gt;
         &lt;&lt;set _keys = Object.keys($player.inventory)&gt;&gt;
@@ -253,7 +254,7 @@ you are. What&#39;s your name?
         &lt;&lt;/for&gt;&gt;
         &lt;&lt;set _keys = Object.keys($player)&gt;&gt;
         &lt;&lt;for _i to 0; _i lt _keys.length; _i++&gt;&gt;
-            &lt;&lt;if [&#39;skills&#39;, &#39;inventory&#39;].includes(_keys[_i])&gt;&gt;
+            &lt;&lt;if [&#39;skills&#39;, &#39;inventory&#39;, &#39;name&#39;, &#39;deaths&#39;].includes(_keys[_i])&gt;&gt;
                 &lt;&lt;continue&gt;&gt;
             &lt;&lt;elseif [&#39;energy&#39;, &#39;health&#39;, &#39;max_health&#39;].includes(_keys[_i])&gt;&gt;
                 &lt;&lt;set $player[_keys[_i]] = 100&gt;&gt;
@@ -440,7 +441,17 @@ You stand to collect your food- &quot;Wait.&quot; The food is pulled back out.
 &lt;&lt;link &quot;\&quot;No.\&quot; @@color:red;(Starts combat encounter)@@&quot; &quot;Combat_Encounter_Start&quot;&gt;&gt;
     &lt;&lt;combat_widget &quot;guard&quot;&gt;&gt;
     &lt;&lt;set $previous_passage = passage()&gt;&gt; &lt;!--Not really necessary at the moment. Good to keep in mind. --&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="27" name="Opening_6" tags="" position="850,350" size="100,100">WIP</tw-passagedata><tw-passagedata pid="28" name="Player_Health_Indicator" tags="" position="975,350" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="27" name="Opening_6" tags="" position="850,350" size="100,100">You awake with a gasp.
+
+//What was that?// You wonder as you tremble. //Did I... die?//
+
+Nothing responds. You look around your cell to calm yourself down, but you find a strange incongruity.
+
+The walls are different. The iron bars are shaped differently. Even the bed, despite the lack of a mattress, is notably different.
+
+//... What is going on?// You&#39;ve died, and returned. It must&#39;ve been a nightmare. It surely was one.
+
+There was no other way to explain what has happened to you.</tw-passagedata><tw-passagedata pid="28" name="Player_Health_Indicator" tags="" position="975,350" size="100,100">&lt;&lt;nobr&gt;&gt;
     &lt;&lt;if $player.health gte $player.max_health * 0.8&gt;&gt;
         &lt;&lt;= either(
             &quot;You&#39;re still doing good. @@color:lime;You have plenty left in the tank.@@&quot;,

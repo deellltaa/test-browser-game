@@ -65,6 +65,7 @@
 :: Death_Handler [widget]
 <<widget 'death_handler'>>
     <<nobr>>
+        <<set $player.deaths += 1>>
         <<set $time = 240>>
         <<set $day = 0>>
         <<set _keys = Object.keys($player.inventory)>>
@@ -77,7 +78,7 @@
         <</for>>
         <<set _keys = Object.keys($player)>>
         <<for _i to 0; _i lt _keys.length; _i++>>
-            <<if ['skills', 'inventory'].includes(_keys[_i])>>
+            <<if ['skills', 'inventory', 'name', 'deaths'].includes(_keys[_i])>>
                 <<continue>>
             <<elseif ['energy', 'health', 'max_health'].includes(_keys[_i])>>
                 <<set $player[_keys[_i]] = 100>>
