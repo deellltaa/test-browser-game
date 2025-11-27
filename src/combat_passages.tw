@@ -28,11 +28,9 @@
     <<nobr>>
     <<if $combat_win === true and $player.health gt 0>>
         <<link "Finish them." "Combat_Over_Victory">>
-            <<combat_finish>>
         <</link>>
     <<else>>
         <<link "@@color:red;You can't do anything.@@" "Combat_Over_Defeat">>
-            <<combat_finish>>
         <</link>>
     <</if>>
     <</nobr>>
@@ -41,8 +39,26 @@
 
 
 :: Combat_Over_Victory
-WIP
-<!-- Unlikely to win at the opening but must keep it in mind. -->
+<<nobr>>
+    <<if $previous_passage === 'Opening_5'>>
+        The guard falls over. Unconscious or dead, you didn't know. Nor did it matter. You did it. You're... //free//.<br>
+        <br>
+        ... If only that was truly the case.<br>
+        <br>
+        Soon after your victory, as you attempt to leave your cell, you are swarmed by many more guards, all itching to 
+        kill you. You watch helplessly as they raise their spears and thrust it forward, impaling you with their polearms and 
+        slaying you on the spot for even daring to hope. <br>
+        <br>
+        Was it all for nothing? Your work... your victory...<br>
+        <br>
+        What a meaningless existence.<br>
+        <br>
+        <<link "... Next?" "Opening_6">>
+            <<combat_finish>>
+            <<death_handler>>
+        <</link>>
+    <</if>>
+<</nobr>>
 
 :: Combat_Over_Defeat
 <<nobr>>
@@ -54,6 +70,7 @@ WIP
         With a laugh, the guard stabs down into your head, @@color:red;killing you instantly.@@<br>
         <br>
         <<link "... Next?" "Opening_6">>
+            <<combat_finish>>
             <<death_handler>>
         <</link>>
     <</if>>

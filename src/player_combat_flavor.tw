@@ -4,6 +4,7 @@ Legend for integer values for player combat:
     1 is Punching
     2 is Tossing
     3 is Poking
+    4 is Blocking
     
     Add more if this evolves past those three stats.
 -->
@@ -46,8 +47,12 @@ Legend for integer values for player combat:
     <<link  "Toss a brick." "Combat">>
         <<set $player.inventory.brick -= 1>>
         <<do_damage "tossing" "brick">>
-    <</link>>
+    <</link>><br>
 <</if>>
+<<link "Defend yourself." "Combat">>
+    <<set $player.DMG_MULT = 0.5>>
+    <<set $last_player_action = 4>>
+<</link>>
 <</nobr>>
 
 :: Player_Combat_Flavor
@@ -63,15 +68,25 @@ Legend for integer values for player combat:
         )>>
     <<elseif $last_player_action === 1>>
         <<= either(
-            "You throw a punch towards the <<= $enemy.type>>.",
-            "You jab at the <<= $enemy.type>> with your fists.",
-            "You lunge, and punch the <<= $enemy.type>> in the face."
+            "You throw a wild punch towards the <<= $enemy.type>>.",
+            "You try and attempt a jab at the <<= $enemy.type>> with your fists.",
+            "You lunge forward, and weakly punch the <<= $enemy.type>> in the face."
         )>>
     <<elseif $last_player_action === 2>>
         <<= either(
             "You toss a <<= $last_player_item>> towards the <<= $enemy.type>>'s head.",
             "With a grunt, you throw a <<= $last_player_item>> towards the <<= $enemy.type>>.",
             "You let go of the <<= $last_player_item>> in your hand and watch it sail towards the <<= $enemy.type>>."
+        )>>
+    <<elseif $last_Player_action === 3>>
+        <<= either(
+            "You use your weapon to poke the <<= $enemy.type>>. You're not sure if it was all that effective."
+        )>>
+    <<elseif $last_player_action === 4>>
+        <<= either(
+            "You ready yourself and watch the <<= $enemy.type>> for any moves.",
+            "You weave in place, readying yourself to dodge.",
+            "You steel yourself, and prepare to take a hit."
         )>>
     <<else>>
         STILL WIP. PLEASE HOLD.

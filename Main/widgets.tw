@@ -21,6 +21,7 @@
         <<set $combat_win = undefined>>
         <<set $last_player_action = undefined>>
         <<set $last_player_item = undefined>>
+        <<set $player.DMG_MULT = 1>>
     <</nobr>>
 <</widget>>
 
@@ -82,6 +83,8 @@
                 <<continue>>
             <<elseif ['energy', 'health', 'max_health'].includes(_keys[_i])>>
                 <<set $player[_keys[_i]] = 100>>
+            <<elseif 'DMG_MULT' === _keys[_i]>>
+                <<set $player.DMG_MULT = 1>>
             <<else>>
                 <<set $player[_keys[_i]] = 0>>
             <</if>>

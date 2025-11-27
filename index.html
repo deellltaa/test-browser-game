@@ -140,6 +140,7 @@ You have died @@color:red;&lt;&lt;= $player.deaths&gt;&gt;@@ times.
         energy: 100,
         health: 100,
         max_health: 100,
+        DMG_MULT: 1,
         inventory: {}
     }
     &gt;&gt;
@@ -206,6 +207,7 @@ you are. What&#39;s your name?
         &lt;&lt;set $combat_win = undefined&gt;&gt;
         &lt;&lt;set $last_player_action = undefined&gt;&gt;
         &lt;&lt;set $last_player_item = undefined&gt;&gt;
+        &lt;&lt;set $player.DMG_MULT = 1&gt;&gt;
     &lt;&lt;/nobr&gt;&gt;
 &lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="Do_Damage" tags="widget" position="100,225" size="100,100">&lt;&lt;widget &#39;do_damage&#39;&gt;&gt;                                  
     &lt;&lt;nobr&gt;&gt;
@@ -258,6 +260,8 @@ you are. What&#39;s your name?
                 &lt;&lt;continue&gt;&gt;
             &lt;&lt;elseif [&#39;energy&#39;, &#39;health&#39;, &#39;max_health&#39;].includes(_keys[_i])&gt;&gt;
                 &lt;&lt;set $player[_keys[_i]] = 100&gt;&gt;
+            &lt;&lt;elseif &#39;DMG_MULT&#39; === _keys[_i]&gt;&gt;
+                &lt;&lt;set $player.DMG_MULT = 1&gt;&gt;
             &lt;&lt;else&gt;&gt;
                 &lt;&lt;set $player[_keys[_i]] = 0&gt;&gt;
             &lt;&lt;/if&gt;&gt;
@@ -289,16 +293,32 @@ you are. What&#39;s your name?
     &lt;&lt;nobr&gt;&gt;
     &lt;&lt;if $combat_win === true and $player.health gt 0&gt;&gt;
         &lt;&lt;link &quot;Finish them.&quot; &quot;Combat_Over_Victory&quot;&gt;&gt;
-            &lt;&lt;combat_finish&gt;&gt;
         &lt;&lt;/link&gt;&gt;
     &lt;&lt;else&gt;&gt;
         &lt;&lt;link &quot;@@color:red;You can&#39;t do anything.@@&quot; &quot;Combat_Over_Defeat&quot;&gt;&gt;
-            &lt;&lt;combat_finish&gt;&gt;
         &lt;&lt;/link&gt;&gt;
     &lt;&lt;/if&gt;&gt;
     &lt;&lt;/nobr&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="Combat_Over_Victory" tags="" position="725,225" size="100,100">WIP
-&lt;!-- Unlikely to win at the opening but must keep it in mind. --&gt;</tw-passagedata><tw-passagedata pid="17" name="Combat_Over_Defeat" tags="" position="850,225" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="Combat_Over_Victory" tags="" position="725,225" size="100,100">&lt;&lt;nobr&gt;&gt;
+    &lt;&lt;if $previous_passage === &#39;Opening_5&#39;&gt;&gt;
+        The guard falls over. Unconscious or dead, you didn&#39;t know. Nor did it matter. You did it. You&#39;re... //free//.&lt;br&gt;
+        &lt;br&gt;
+        ... If only that was truly the case.&lt;br&gt;
+        &lt;br&gt;
+        Soon after your victory, as you attempt to leave your cell, you are swarmed by many more guards, all itching to 
+        kill you. You watch helplessly as they raise their spears and thrust it forward, impaling you with their polearms and 
+        slaying you on the spot for even daring to hope. &lt;br&gt;
+        &lt;br&gt;
+        Was it all for nothing? Your work... your victory...&lt;br&gt;
+        &lt;br&gt;
+        What a meaningless existence.&lt;br&gt;
+        &lt;br&gt;
+        &lt;&lt;link &quot;... Next?&quot; &quot;Opening_6&quot;&gt;&gt;
+            &lt;&lt;combat_finish&gt;&gt;
+            &lt;&lt;death_handler&gt;&gt;
+        &lt;&lt;/link&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="Combat_Over_Defeat" tags="" position="850,225" size="100,100">&lt;&lt;nobr&gt;&gt;
     &lt;&lt;if $previous_passage === &#39;Opening_5&#39;&gt;&gt;
         The guard regards you with a sneer. You glare up at them weakly as they raise their spear point above your head.&lt;br&gt;
         &lt;br&gt;
@@ -307,6 +327,7 @@ you are. What&#39;s your name?
         With a laugh, the guard stabs down into your head, @@color:red;killing you instantly.@@&lt;br&gt;
         &lt;br&gt;
         &lt;&lt;link &quot;... Next?&quot; &quot;Opening_6&quot;&gt;&gt;
+            &lt;&lt;combat_finish&gt;&gt;
             &lt;&lt;death_handler&gt;&gt;
         &lt;&lt;/link&gt;&gt;
     &lt;&lt;/if&gt;&gt;
@@ -360,7 +381,11 @@ you are. What&#39;s your name?
             &lt;&lt;set _dmg = random(1,12) + random(1,12) + random(1,12) + $enemy.damage&gt;&gt;
             &lt;&lt;set $prev_enemy_action = &quot;spear&quot;&gt;&gt;
         &lt;&lt;/if&gt;&gt;
-        &lt;&lt;set $player.health -= _dmg&gt;&gt;
+        &lt;&lt;=_dmg&gt;&gt; DMG PRE MULT
+        &lt;&lt;set _dmg = _dmg*$player.DMG_MULT&gt;&gt;&lt;br&gt;
+        &lt;&lt;= _dmg&gt;&gt; DMG POST MULT
+        &lt;&lt;set $player.DMG_MULT = 1&gt;&gt;
+        &lt;&lt;set $player.health -= Math.floor(_dmg)&gt;&gt;
     &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="20" name="Opening" tags="" position="1225,225" size="100,100">&lt;&lt;silently&gt;&gt;\
     &lt;&lt;set $current_location = &#39;prison_cell&#39;&gt;&gt;
@@ -485,8 +510,12 @@ There was no other way to explain what has happened to you.</tw-passagedata><tw-
     &lt;&lt;link  &quot;Toss a brick.&quot; &quot;Combat&quot;&gt;&gt;
         &lt;&lt;set $player.inventory.brick -= 1&gt;&gt;
         &lt;&lt;do_damage &quot;tossing&quot; &quot;brick&quot;&gt;&gt;
-    &lt;&lt;/link&gt;&gt;
+    &lt;&lt;/link&gt;&gt;&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
+&lt;&lt;link &quot;Defend yourself.&quot; &quot;Combat&quot;&gt;&gt;
+    &lt;&lt;set $player.DMG_MULT = 0.5&gt;&gt;
+    &lt;&lt;set $last_player_action = 4&gt;&gt;
+&lt;&lt;/link&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="30" name="Player_Combat_Flavor" tags="" position="1225,350" size="100,100">&lt;&lt;nobr&gt;&gt;
     &lt;&lt;if $last_player_action === undefined&gt;&gt;
         &lt;&lt;set $last_player_action = 0&gt;&gt;
@@ -499,15 +528,25 @@ There was no other way to explain what has happened to you.</tw-passagedata><tw-
         )&gt;&gt;
     &lt;&lt;elseif $last_player_action === 1&gt;&gt;
         &lt;&lt;= either(
-            &quot;You throw a punch towards the &lt;&lt;= $enemy.type&gt;&gt;.&quot;,
-            &quot;You jab at the &lt;&lt;= $enemy.type&gt;&gt; with your fists.&quot;,
-            &quot;You lunge, and punch the &lt;&lt;= $enemy.type&gt;&gt; in the face.&quot;
+            &quot;You throw a wild punch towards the &lt;&lt;= $enemy.type&gt;&gt;.&quot;,
+            &quot;You try and attempt a jab at the &lt;&lt;= $enemy.type&gt;&gt; with your fists.&quot;,
+            &quot;You lunge forward, and weakly punch the &lt;&lt;= $enemy.type&gt;&gt; in the face.&quot;
         )&gt;&gt;
     &lt;&lt;elseif $last_player_action === 2&gt;&gt;
         &lt;&lt;= either(
             &quot;You toss a &lt;&lt;= $last_player_item&gt;&gt; towards the &lt;&lt;= $enemy.type&gt;&gt;&#39;s head.&quot;,
             &quot;With a grunt, you throw a &lt;&lt;= $last_player_item&gt;&gt; towards the &lt;&lt;= $enemy.type&gt;&gt;.&quot;,
             &quot;You let go of the &lt;&lt;= $last_player_item&gt;&gt; in your hand and watch it sail towards the &lt;&lt;= $enemy.type&gt;&gt;.&quot;
+        )&gt;&gt;
+    &lt;&lt;elseif $last_Player_action === 3&gt;&gt;
+        &lt;&lt;= either(
+            &quot;You use your weapon to poke the &lt;&lt;= $enemy.type&gt;&gt;. You&#39;re not sure if it was all that effective.&quot;
+        )&gt;&gt;
+    &lt;&lt;elseif $last_player_action === 4&gt;&gt;
+        &lt;&lt;= either(
+            &quot;You ready yourself and watch the &lt;&lt;= $enemy.type&gt;&gt; for any moves.&quot;,
+            &quot;You weave in place, readying yourself to dodge.&quot;,
+            &quot;You steel yourself, and prepare to take a hit.&quot;
         )&gt;&gt;
     &lt;&lt;else&gt;&gt;
         STILL WIP. PLEASE HOLD.

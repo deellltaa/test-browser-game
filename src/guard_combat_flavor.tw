@@ -52,6 +52,10 @@
             <<set _dmg = random(1,12) + random(1,12) + random(1,12) + $enemy.damage>>
             <<set $prev_enemy_action = "spear">>
         <</if>>
-        <<set $player.health -= _dmg>>
+        <<=_dmg>> DMG PRE MULT
+        <<set _dmg = _dmg*$player.DMG_MULT>><br>
+        <<= _dmg>> DMG POST MULT
+        <<set $player.DMG_MULT = 1>>
+        <<set $player.health -= Math.floor(_dmg)>>
     <</if>>
 <</nobr>>
