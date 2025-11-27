@@ -193,9 +193,9 @@ you are. What&#39;s your name?
         &lt;&lt;if $args[0] is &quot;guard&quot;&gt;&gt;
             &lt;&lt;set $enemy = {
                 type: &#39;guard&#39;,
-                max_hp: 30,
-                health: 30,
-                damage: 3
+                max_hp: 50,
+                health: 50,
+                damage: 5
             }&gt;&gt;
         &lt;&lt;/if&gt;&gt;
     &lt;&lt;/nobr&gt;&gt;
@@ -204,6 +204,8 @@ you are. What&#39;s your name?
         &lt;&lt;set $enemy = undefined&gt;&gt;
         &lt;&lt;set $prev_enemy_action = undefined&gt;&gt;
         &lt;&lt;set $combat_win = undefined&gt;&gt;
+        &lt;&lt;set $last_player_action = undefined&gt;&gt;
+        &lt;&lt;set $last_player_item = undefined&gt;&gt;
     &lt;&lt;/nobr&gt;&gt;
 &lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="Do_Damage" tags="widget" position="100,225" size="100,100">&lt;&lt;widget &#39;do_damage&#39;&gt;&gt;                                  
     &lt;&lt;nobr&gt;&gt;
@@ -225,6 +227,7 @@ you are. What&#39;s your name?
                 &lt;&lt;set _dmg += random(1,4)&gt;&gt;
             &lt;&lt;/for&gt;&gt;
             &lt;&lt;set $last_player_action = 2&gt;&gt;
+            &lt;&lt;set $last_player_item = &#39;brick&#39;&gt;&gt;
             &lt;&lt;set $enemy.health -= _dmg + $TOSSING_ITEM_MODIFIERS[$args[1]]&gt;&gt;
         &lt;&lt;/if&gt;&gt;
     &lt;&lt;/nobr&gt;&gt;
@@ -232,8 +235,9 @@ you are. What&#39;s your name?
     &lt;&lt;include &#39;Player_Health_Indicator&#39;&gt;&gt;
     &lt;&lt;nobr&gt;&gt;
         &lt;&lt;if $enemy.type === &#39;guard&#39;&gt;&gt;
-            &lt;&lt;include &#39;Guard_In_Combat&#39;&gt;&gt;
+            &lt;&lt;include &#39;Guard_In_Combat&#39;&gt;&gt;&lt;br&gt;&lt;br&gt;
         &lt;&lt;/if&gt;&gt;
+        &lt;&lt;include &#39;Player_Combat_Flavor&#39;&gt;&gt;
     &lt;&lt;/nobr&gt;&gt;
 &lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="Death_Handler" tags="widget" position="350,225" size="100,100">&lt;&lt;widget &#39;death_handler&#39;&gt;&gt;
     &lt;&lt;nobr&gt;&gt;
@@ -265,7 +269,7 @@ you are. What&#39;s your name?
 
         [[Next|Combat][$fight_started = true]]
     &lt;&lt;/if&gt;&gt;\
-&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="15" name="Combat" tags="" position="600,225" size="100,100">&lt;&lt;cf_driver&gt;&gt;
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="15" name="Combat" tags="" position="600,225" size="100,100">&lt;&lt;cf_driver&gt;&gt;\
 &lt;&lt;if $enemy.health lte 0&gt;&gt;\
     ... And it looks like now&#39;s your chance. End them.
     &lt;&lt;set $fight_started = false&gt;&gt;\
@@ -279,19 +283,10 @@ you are. What&#39;s your name?
 &lt;&lt;if $fight_started === true&gt;&gt;\
     &lt;&lt;include &quot;Guard_Combat_Decisions&quot;&gt;&gt;
 
-    &lt;&lt;link &quot;Punch them.&quot; &quot;Combat&quot;&gt;&gt;
-        &lt;&lt;do_damage &quot;punching&quot;&gt;&gt;
-    &lt;&lt;/link&gt;&gt;
-    &lt;&lt;nobr&gt;&gt;
-    &lt;&lt;if $player.inventory.brick gte 1&gt;&gt;
-        &lt;&lt;link  &quot;Toss a brick.&quot; &quot;Combat&quot;&gt;&gt;
-            &lt;&lt;do_damage &quot;tossing&quot; &quot;brick&quot;&gt;&gt;
-        &lt;&lt;/link&gt;&gt;
-    &lt;&lt;/if&gt;&gt;
-    &lt;&lt;/nobr&gt;&gt;
+    &lt;&lt;include &quot;Player_Choice_Generator&quot;&gt;&gt;
 &lt;&lt;else&gt;&gt;
     &lt;&lt;nobr&gt;&gt;
-    &lt;&lt;if $combat_win === true&gt;&gt;
+    &lt;&lt;if $combat_win === true and $player.health gt 0&gt;&gt;
         &lt;&lt;link &quot;Finish them.&quot; &quot;Combat_Over_Victory&quot;&gt;&gt;
             &lt;&lt;combat_finish&gt;&gt;
         &lt;&lt;/link&gt;&gt;
@@ -470,6 +465,41 @@ You stand to collect your food- &quot;Wait.&quot; The food is pulled back out.
             &quot;You ready yourself in defiance, but @@color:red;you can no longer hide how weak you are.@@&quot;,
             &quot;You stand, and yet you cannot fight for longer. @@color:red;Exhaustion seeps into your bones.@@&quot;
         )&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="29" name="Player_Choice_Generator" tags="" position="1100,350" size="100,100">&lt;&lt;link &quot;Punch them.&quot; &quot;Combat&quot;&gt;&gt;
+    &lt;&lt;do_damage &quot;punching&quot;&gt;&gt;
+&lt;&lt;/link&gt;&gt;
+&lt;&lt;nobr&gt;&gt;
+&lt;&lt;if $player.inventory.brick gte 1&gt;&gt;
+    &lt;&lt;link  &quot;Toss a brick.&quot; &quot;Combat&quot;&gt;&gt;
+        &lt;&lt;set $player.inventory.brick -= 1&gt;&gt;
+        &lt;&lt;do_damage &quot;tossing&quot; &quot;brick&quot;&gt;&gt;
+    &lt;&lt;/link&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="30" name="Player_Combat_Flavor" tags="" position="1225,350" size="100,100">&lt;&lt;nobr&gt;&gt;
+    &lt;&lt;if $last_player_action === undefined&gt;&gt;
+        &lt;&lt;set $last_player_action = 0&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+    &lt;&lt;if $last_player_action === 0 or $last_player_action === undefined&gt;&gt;
+        &lt;&lt;= either(
+            &quot;You rest for a moment, observing your enemy.&quot;,
+            &quot;You glare at your enemy as you assess your options.&quot;,
+            &quot;You cautiously keep the &lt;&lt;= $enemy.type&gt;&gt; in your field of view as you think up a plan.&quot;
+        )&gt;&gt;
+    &lt;&lt;elseif $last_player_action === 1&gt;&gt;
+        &lt;&lt;= either(
+            &quot;You throw a punch towards the &lt;&lt;= $enemy.type&gt;&gt;.&quot;,
+            &quot;You jab at the &lt;&lt;= $enemy.type&gt;&gt; with your fists.&quot;,
+            &quot;You lunge, and punch the &lt;&lt;= $enemy.type&gt;&gt; in the face.&quot;
+        )&gt;&gt;
+    &lt;&lt;elseif $last_player_action === 2&gt;&gt;
+        &lt;&lt;= either(
+            &quot;You toss a &lt;&lt;= $last_player_item&gt;&gt; towards the &lt;&lt;= $enemy.type&gt;&gt;&#39;s head.&quot;,
+            &quot;With a grunt, you throw a &lt;&lt;= $last_player_item&gt;&gt; towards the &lt;&lt;= $enemy.type&gt;&gt;.&quot;,
+            &quot;You let go of the &lt;&lt;= $last_player_item&gt;&gt; in your hand and watch it sail towards the &lt;&lt;= $enemy.type&gt;&gt;.&quot;
+        )&gt;&gt;
+    &lt;&lt;else&gt;&gt;
+        STILL WIP. PLEASE HOLD.
     &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">

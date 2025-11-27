@@ -36,3 +36,44 @@ Legend for integer values for player combat:
         )>>
     <</if>>
 <</nobr>>
+
+:: Player_Choice_Generator
+<<link "Punch them." "Combat">>
+    <<do_damage "punching">>
+<</link>>
+<<nobr>>
+<<if $player.inventory.brick gte 1>>
+    <<link  "Toss a brick." "Combat">>
+        <<set $player.inventory.brick -= 1>>
+        <<do_damage "tossing" "brick">>
+    <</link>>
+<</if>>
+<</nobr>>
+
+:: Player_Combat_Flavor
+<<nobr>>
+    <<if $last_player_action === undefined>>
+        <<set $last_player_action = 0>>
+    <</if>>
+    <<if $last_player_action === 0 or $last_player_action === undefined>>
+        <<= either(
+            "You rest for a moment, observing your enemy.",
+            "You glare at your enemy as you assess your options.",
+            "You cautiously keep the <<= $enemy.type>> in your field of view as you think up a plan."
+        )>>
+    <<elseif $last_player_action === 1>>
+        <<= either(
+            "You throw a punch towards the <<= $enemy.type>>.",
+            "You jab at the <<= $enemy.type>> with your fists.",
+            "You lunge, and punch the <<= $enemy.type>> in the face."
+        )>>
+    <<elseif $last_player_action === 2>>
+        <<= either(
+            "You toss a <<= $last_player_item>> towards the <<= $enemy.type>>'s head.",
+            "With a grunt, you throw a <<= $last_player_item>> towards the <<= $enemy.type>>.",
+            "You let go of the <<= $last_player_item>> in your hand and watch it sail towards the <<= $enemy.type>>."
+        )>>
+    <<else>>
+        STILL WIP. PLEASE HOLD.
+    <</if>>
+<</nobr>>

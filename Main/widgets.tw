@@ -5,9 +5,9 @@
         <<if $args[0] is "guard">>
             <<set $enemy = {
                 type: 'guard',
-                max_hp: 30,
-                health: 30,
-                damage: 3
+                max_hp: 50,
+                health: 50,
+                damage: 5
             }>>
         <</if>>
     <</nobr>>
@@ -19,6 +19,8 @@
         <<set $enemy = undefined>>
         <<set $prev_enemy_action = undefined>>
         <<set $combat_win = undefined>>
+        <<set $last_player_action = undefined>>
+        <<set $last_player_item = undefined>>
     <</nobr>>
 <</widget>>
 
@@ -43,6 +45,7 @@
                 <<set _dmg += random(1,4)>>
             <</for>>
             <<set $last_player_action = 2>>
+            <<set $last_player_item = 'brick'>>
             <<set $enemy.health -= _dmg + $TOSSING_ITEM_MODIFIERS[$args[1]]>>
         <</if>>
     <</nobr>>
@@ -53,8 +56,9 @@
     <<include 'Player_Health_Indicator'>>
     <<nobr>>
         <<if $enemy.type === 'guard'>>
-            <<include 'Guard_In_Combat'>>
+            <<include 'Guard_In_Combat'>><br><br>
         <</if>>
+        <<include 'Player_Combat_Flavor'>>
     <</nobr>>
 <</widget>>
 

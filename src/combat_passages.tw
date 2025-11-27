@@ -9,7 +9,7 @@
 <</if>>\
 
 :: Combat
-<<cf_driver>>
+<<cf_driver>>\
 <<if $enemy.health lte 0>>\
     ... And it looks like now's your chance. End them.
     <<set $fight_started = false>>\
@@ -23,19 +23,10 @@
 <<if $fight_started === true>>\
     <<include "Guard_Combat_Decisions">>
 
-    <<link "Punch them." "Combat">>
-        <<do_damage "punching">>
-    <</link>>
-    <<nobr>>
-    <<if $player.inventory.brick gte 1>>
-        <<link  "Toss a brick." "Combat">>
-            <<do_damage "tossing" "brick">>
-        <</link>>
-    <</if>>
-    <</nobr>>
+    <<include "Player_Choice_Generator">>
 <<else>>
     <<nobr>>
-    <<if $combat_win === true>>
+    <<if $combat_win === true and $player.health gt 0>>
         <<link "Finish them." "Combat_Over_Victory">>
             <<combat_finish>>
         <</link>>
