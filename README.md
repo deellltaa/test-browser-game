@@ -23,3 +23,5 @@ Todo:
     - Traversable locations
     
     - Random events
+
+Reminder to self: don't checkout older versions without killing the autobuild tweego function... it might cause some issues later...
