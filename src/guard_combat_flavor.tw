@@ -1,3 +1,4 @@
+<!-- Guard Flavor Generator -->
 :: Guard_In_Combat
 <<nobr>>
     <<if $enemy.health gt $enemy.max_hp*0.8>>
@@ -52,9 +53,7 @@
             <<set _dmg = random(1,12) + random(1,12) + random(1,12) + $enemy.damage>>
             <<set $prev_enemy_action = "spear">>
         <</if>>
-        <<=_dmg>> DMG PRE MULT
-        <<set _dmg = _dmg*$player.DMG_MULT>><br>
-        <<= _dmg>> DMG POST MULT
+        <<set _dmg = _dmg*$player.DMG_MULT>>
         <<set $player.DMG_MULT = 1>>
         <<set $player.health -= _dmg>>
     <</if>>

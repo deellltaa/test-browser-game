@@ -109,4 +109,31 @@ The walls are different. The iron bars are shaped differently. Even the bed, des
 
 //... What is going on?// You've died, and returned. It must've been a nightmare. It surely was one.
 
-There was no other way to explain what has happened to you.
+But you //knew// that it wasn't. Just like how you knew your own name as a fact, you knew that you had //died//.
+
+[[Next|Opening_7]]
+
+:: Opening_7
+What did this mean for you, you wonder? It meant that you were @@color:red;stuck@@ here. In this prison, doing gods know what.
+
+You still don't know why you're here. You still don't know how you got here. You had no power and no strength. Perhaps... it'll be \
+wise to fix those issues.
+
+You have no idea on how to go about doing that, but with this strange ability of yours, you can surely figure it out.
+
+[[Next|Opening_8]]
+
+:: Opening_8
+//The prologue is now over! You are now free to explore your Prison Cell, and perhaps even find a way to roam the prison itself..//
+
+//Every time you die, you lose your levels and skillpoints, and everything you gather from your adventures. Time will reset back \
+to day 0, and any time based events will rewind as if they were undone. However, you keep any skill evolutions and advanced training \
+methods you end up finding, which will make you stronger in future lives!//
+
+//The aim right now, of course, is to find a way to get out of the Prison... after that, well, it's up to what happens then, right?//
+
+//Good luck and enjoy the game!//
+
+@@color:lime;+ Free Roam unlocked!@@
+
+[[Next|Prison_Cell]]

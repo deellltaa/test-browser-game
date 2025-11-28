@@ -51,7 +51,7 @@ Legend for integer values for player combat:
     <</link>><br>
 <</if>>
 <<link "Defend yourself." "Combat">>
-    <<if random(1,10) === 10>>
+    <<if random(1,100) gt 85>>
         <<set $player.DMG_MULT = 0>>
         <<set $last_player_action = 5>>
     <<else>>
@@ -96,9 +96,9 @@ Legend for integer values for player combat:
         )>>
     <<elseif $last_player_action === 5>>
         <<= either(
-            "You sidestep the <<= $enemy.type>>'s attack. You're not sure if it was luck or not.",
-            "You duck under the <<= $enemy.type>>'s attack. They don't look too happy about it.",
-            "You avoid getting turned into an obituary with a quick backwards hop. Your heart pounds in your chest."
+            "@@color:lime;You sidestep the <<= $enemy.type>>'s attack.@@ You're not sure if it was luck or not.",
+            "@@color:lime;You duck under the <<= $enemy.type>>'s attack.@@ They don't look too happy about it.",
+            "@@color:lime;You avoid getting turned into an obituary with a quick backwards hop.@@ Your heart pounds in your chest."
         )>>
     <<else>>
         STILL WIP. PLEASE HOLD.
