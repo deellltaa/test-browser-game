@@ -1,16 +1,17 @@
 :: Combat_Widget [widget]
-<<widget 'combat_widget'>>
+<<widget 'combat_widget'>>\
     <<nobr>>
         <!-- Args[0] should be enemy type. -->
-        <<if $args[0] is "guard">>
-            <<set $enemy = {
-                type: 'guard',
-                max_hp: 50,
-                health: 50,
-                damage: 5
-            }>>
-        <</if>>
-    <</nobr>>
+        <<switch $args[0]>>
+            <<case 'guard'>>
+                <<set $enemy = {
+                    type: 'guard',
+                    max_hp: 50,
+                    health: 50,
+                    damage: 5
+                }>>
+        <</switch>>
+    <</nobr>>\
 <</widget>>
 
 :: Combat_Finish [widget]
@@ -35,20 +36,21 @@
             <<set $last_player_action = 0>>
         <</if>>
         <<set _dmg = 0>>
-        <<if $args[0] is "punching">>
-            <<for _i = 0; _i <= $player.skills.punching; _i++>>
-                <<set _dmg += random(1,2)>>
-            <</for>>
-            <<set $last_player_action = 1>>
-            <<set $enemy.health -= _dmg>>
-        <<elseif $args[0] is 'tossing'>>
-            <<for _i = 0; _i <= $player.skills.tossing; _i++>>
-                <<set _dmg += random(1,4)>>
-            <</for>>
-            <<set $last_player_action = 2>>
-            <<set $last_player_item = 'brick'>>
-            <<set $enemy.health -= _dmg + $TOSSING_ITEM_MODIFIERS[$args[1]]>>
-        <</if>>
+        <<switch $args[0]>>
+            <<case 'punching'>>
+                <<for _i = 0; _i <= $player.skills.punching; _i++>>
+                    <<set _dmg += random(1,2)>>
+                <</for>>
+                <<set $last_player_action = 1>>
+                <<set $enemy.health -= _dmg>>
+            <<case 'tossing'>>
+                <<for _i = 0; _i <= $player.skills.tossing; _i++>>
+                    <<set _dmg += random(1,4)>>
+                <</for>>
+                <<set $last_player_action = 2>>
+                <<set $last_player_item = 'brick'>>
+                <<set $enemy.health -= _dmg + $TOSSING_ITEM_MODIFIERS[$args[1]]>>
+        <</switch>>
     <</nobr>>
 <</widget>>
 
@@ -56,9 +58,10 @@
 <<widget 'cf_driver'>>
     <<include 'Player_Health_Indicator'>>
     <<nobr>>
-        <<if $enemy.type === 'guard'>>
-            <<include 'Guard_In_Combat'>><br><br>
-        <</if>>
+        <<switch $enemy.type>>
+            <<case "guard">>
+                <<include 'Guard_In_Combat'>><br><br>
+        <</switch>>
         <<include 'Player_Combat_Flavor'>>
     <</nobr>>
 <</widget>>
@@ -79,15 +82,16 @@
         <</for>>
         <<set _keys = Object.keys($player)>>
         <<for _i to 0; _i lt _keys.length; _i++>>
-            <<if ['skills', 'inventory', 'name', 'deaths'].includes(_keys[_i])>>
-                <<continue>>
-            <<elseif ['energy', 'health', 'max_health'].includes(_keys[_i])>>
-                <<set $player[_keys[_i]] = 100>>
-            <<elseif 'DMG_MULT' === _keys[_i]>>
-                <<set $player.DMG_MULT = 1>>
-            <<else>>
-                <<set $player[_keys[_i]] = 0>>
-            <</if>>
+            <<switch _keys[_i]>>
+                <<case 'skills' 'inventory' 'name' 'deaths'>>
+                    <<continue>>
+                <<case 'energy', 'health', 'max_health'>>
+                    <<set $player[_keys[_i]] = 100>>
+                <<case 'DMG_MULT'>>
+                    <<set $player[_keys[_i]] = 1>>
+                <<default>>
+                    <<set $player[_keys[_i]] = 0>>
+            <</switch>>
         <</for>>
     <</nobr>>
 <</widget>>

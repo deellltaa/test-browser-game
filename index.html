@@ -532,18 +532,19 @@ you are. What&#39;s your name?
     &lt;&lt;set $TOSSING_ITEM_MODIFIERS = {
         brick: 6
     }&gt;&gt;
-&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="29" name="Combat_Widget" tags="widget" position="1100,350" size="100,100">&lt;&lt;widget &#39;combat_widget&#39;&gt;&gt;
+&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="29" name="Combat_Widget" tags="widget" position="1100,350" size="100,100">&lt;&lt;widget &#39;combat_widget&#39;&gt;&gt;\
     &lt;&lt;nobr&gt;&gt;
         &lt;!-- Args[0] should be enemy type. --&gt;
-        &lt;&lt;if $args[0] is &quot;guard&quot;&gt;&gt;
-            &lt;&lt;set $enemy = {
-                type: &#39;guard&#39;,
-                max_hp: 50,
-                health: 50,
-                damage: 5
-            }&gt;&gt;
-        &lt;&lt;/if&gt;&gt;
-    &lt;&lt;/nobr&gt;&gt;
+        &lt;&lt;switch $args[0]&gt;&gt;
+            &lt;&lt;case &#39;guard&#39;&gt;&gt;
+                &lt;&lt;set $enemy = {
+                    type: &#39;guard&#39;,
+                    max_hp: 50,
+                    health: 50,
+                    damage: 5
+                }&gt;&gt;
+        &lt;&lt;/switch&gt;&gt;
+    &lt;&lt;/nobr&gt;&gt;\
 &lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="30" name="Combat_Finish" tags="widget" position="1225,350" size="100,100">&lt;&lt;widget &#39;combat_finish&#39;&gt;&gt; &lt;!-- Clean up enemy specific vars. --&gt;
     &lt;&lt;nobr&gt;&gt;
         &lt;&lt;set $enemy = undefined&gt;&gt;
@@ -562,27 +563,29 @@ you are. What&#39;s your name?
             &lt;&lt;set $last_player_action = 0&gt;&gt;
         &lt;&lt;/if&gt;&gt;
         &lt;&lt;set _dmg = 0&gt;&gt;
-        &lt;&lt;if $args[0] is &quot;punching&quot;&gt;&gt;
-            &lt;&lt;for _i = 0; _i &lt;= $player.skills.punching; _i++&gt;&gt;
-                &lt;&lt;set _dmg += random(1,2)&gt;&gt;
-            &lt;&lt;/for&gt;&gt;
-            &lt;&lt;set $last_player_action = 1&gt;&gt;
-            &lt;&lt;set $enemy.health -= _dmg&gt;&gt;
-        &lt;&lt;elseif $args[0] is &#39;tossing&#39;&gt;&gt;
-            &lt;&lt;for _i = 0; _i &lt;= $player.skills.tossing; _i++&gt;&gt;
-                &lt;&lt;set _dmg += random(1,4)&gt;&gt;
-            &lt;&lt;/for&gt;&gt;
-            &lt;&lt;set $last_player_action = 2&gt;&gt;
-            &lt;&lt;set $last_player_item = &#39;brick&#39;&gt;&gt;
-            &lt;&lt;set $enemy.health -= _dmg + $TOSSING_ITEM_MODIFIERS[$args[1]]&gt;&gt;
-        &lt;&lt;/if&gt;&gt;
+        &lt;&lt;switch $args[0]&gt;&gt;
+            &lt;&lt;case &#39;punching&#39;&gt;&gt;
+                &lt;&lt;for _i = 0; _i &lt;= $player.skills.punching; _i++&gt;&gt;
+                    &lt;&lt;set _dmg += random(1,2)&gt;&gt;
+                &lt;&lt;/for&gt;&gt;
+                &lt;&lt;set $last_player_action = 1&gt;&gt;
+                &lt;&lt;set $enemy.health -= _dmg&gt;&gt;
+            &lt;&lt;case &#39;tossing&#39;&gt;&gt;
+                &lt;&lt;for _i = 0; _i &lt;= $player.skills.tossing; _i++&gt;&gt;
+                    &lt;&lt;set _dmg += random(1,4)&gt;&gt;
+                &lt;&lt;/for&gt;&gt;
+                &lt;&lt;set $last_player_action = 2&gt;&gt;
+                &lt;&lt;set $last_player_item = &#39;brick&#39;&gt;&gt;
+                &lt;&lt;set $enemy.health -= _dmg + $TOSSING_ITEM_MODIFIERS[$args[1]]&gt;&gt;
+        &lt;&lt;/switch&gt;&gt;
     &lt;&lt;/nobr&gt;&gt;
 &lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="32" name="Combat_Flavor_Driver" tags="widget" position="225,475" size="100,100">&lt;&lt;widget &#39;cf_driver&#39;&gt;&gt;
     &lt;&lt;include &#39;Player_Health_Indicator&#39;&gt;&gt;
     &lt;&lt;nobr&gt;&gt;
-        &lt;&lt;if $enemy.type === &#39;guard&#39;&gt;&gt;
-            &lt;&lt;include &#39;Guard_In_Combat&#39;&gt;&gt;&lt;br&gt;&lt;br&gt;
-        &lt;&lt;/if&gt;&gt;
+        &lt;&lt;switch $enemy.type&gt;&gt;
+            &lt;&lt;case &quot;guard&quot;&gt;&gt;
+                &lt;&lt;include &#39;Guard_In_Combat&#39;&gt;&gt;&lt;br&gt;&lt;br&gt;
+        &lt;&lt;/switch&gt;&gt;
         &lt;&lt;include &#39;Player_Combat_Flavor&#39;&gt;&gt;
     &lt;&lt;/nobr&gt;&gt;
 &lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="33" name="Death_Handler" tags="widget" position="350,475" size="100,100">&lt;&lt;widget &#39;death_handler&#39;&gt;&gt;
@@ -600,15 +603,16 @@ you are. What&#39;s your name?
         &lt;&lt;/for&gt;&gt;
         &lt;&lt;set _keys = Object.keys($player)&gt;&gt;
         &lt;&lt;for _i to 0; _i lt _keys.length; _i++&gt;&gt;
-            &lt;&lt;if [&#39;skills&#39;, &#39;inventory&#39;, &#39;name&#39;, &#39;deaths&#39;].includes(_keys[_i])&gt;&gt;
-                &lt;&lt;continue&gt;&gt;
-            &lt;&lt;elseif [&#39;energy&#39;, &#39;health&#39;, &#39;max_health&#39;].includes(_keys[_i])&gt;&gt;
-                &lt;&lt;set $player[_keys[_i]] = 100&gt;&gt;
-            &lt;&lt;elseif &#39;DMG_MULT&#39; === _keys[_i]&gt;&gt;
-                &lt;&lt;set $player.DMG_MULT = 1&gt;&gt;
-            &lt;&lt;else&gt;&gt;
-                &lt;&lt;set $player[_keys[_i]] = 0&gt;&gt;
-            &lt;&lt;/if&gt;&gt;
+            &lt;&lt;switch _keys[_i]&gt;&gt;
+                &lt;&lt;case &#39;skills&#39; &#39;inventory&#39; &#39;name&#39; &#39;deaths&#39;&gt;&gt;
+                    &lt;&lt;continue&gt;&gt;
+                &lt;&lt;case &#39;energy&#39;, &#39;health&#39;, &#39;max_health&#39;&gt;&gt;
+                    &lt;&lt;set $player[_keys[_i]] = 100&gt;&gt;
+                &lt;&lt;case &#39;DMG_MULT&#39;&gt;&gt;
+                    &lt;&lt;set $player[_keys[_i]] = 1&gt;&gt;
+                &lt;&lt;default&gt;&gt;
+                    &lt;&lt;set $player[_keys[_i]] = 0&gt;&gt;
+            &lt;&lt;/switch&gt;&gt;
         &lt;&lt;/for&gt;&gt;
     &lt;&lt;/nobr&gt;&gt;
 &lt;&lt;/widget&gt;&gt;
