@@ -385,7 +385,7 @@ you are. What&#39;s your name?
         &lt;&lt;set _dmg = _dmg*$player.DMG_MULT&gt;&gt;&lt;br&gt;
         &lt;&lt;= _dmg&gt;&gt; DMG POST MULT
         &lt;&lt;set $player.DMG_MULT = 1&gt;&gt;
-        &lt;&lt;set $player.health -= Math.floor(_dmg)&gt;&gt;
+        &lt;&lt;set $player.health -= _dmg&gt;&gt;
     &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="20" name="Opening" tags="" position="1225,225" size="100,100">&lt;&lt;silently&gt;&gt;\
     &lt;&lt;set $current_location = &#39;prison_cell&#39;&gt;&gt;
@@ -513,8 +513,13 @@ There was no other way to explain what has happened to you.</tw-passagedata><tw-
     &lt;&lt;/link&gt;&gt;&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;link &quot;Defend yourself.&quot; &quot;Combat&quot;&gt;&gt;
-    &lt;&lt;set $player.DMG_MULT = 0.5&gt;&gt;
-    &lt;&lt;set $last_player_action = 4&gt;&gt;
+    &lt;&lt;if random(1,10) === 10&gt;&gt;
+        &lt;&lt;set $player.DMG_MULT = 0&gt;&gt;
+        &lt;&lt;set $last_player_action = 5&gt;&gt;
+    &lt;&lt;else&gt;&gt;
+        &lt;&lt;set $player.DMG_MULT = 0.5&gt;&gt;
+        &lt;&lt;set $last_player_action = 4&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
 &lt;&lt;/link&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="30" name="Player_Combat_Flavor" tags="" position="1225,350" size="100,100">&lt;&lt;nobr&gt;&gt;
     &lt;&lt;if $last_player_action === undefined&gt;&gt;
@@ -538,7 +543,7 @@ There was no other way to explain what has happened to you.</tw-passagedata><tw-
             &quot;With a grunt, you throw a &lt;&lt;= $last_player_item&gt;&gt; towards the &lt;&lt;= $enemy.type&gt;&gt;.&quot;,
             &quot;You let go of the &lt;&lt;= $last_player_item&gt;&gt; in your hand and watch it sail towards the &lt;&lt;= $enemy.type&gt;&gt;.&quot;
         )&gt;&gt;
-    &lt;&lt;elseif $last_Player_action === 3&gt;&gt;
+    &lt;&lt;elseif $last_player_action === 3&gt;&gt;
         &lt;&lt;= either(
             &quot;You use your weapon to poke the &lt;&lt;= $enemy.type&gt;&gt;. You&#39;re not sure if it was all that effective.&quot;
         )&gt;&gt;
@@ -547,6 +552,12 @@ There was no other way to explain what has happened to you.</tw-passagedata><tw-
             &quot;You ready yourself and watch the &lt;&lt;= $enemy.type&gt;&gt; for any moves.&quot;,
             &quot;You weave in place, readying yourself to dodge.&quot;,
             &quot;You steel yourself, and prepare to take a hit.&quot;
+        )&gt;&gt;
+    &lt;&lt;elseif $last_player_action === 5&gt;&gt;
+        &lt;&lt;= either(
+            &quot;You sidestep the &lt;&lt;= $enemy.type&gt;&gt;&#39;s attack. You&#39;re not sure if it was luck or not.&quot;,
+            &quot;You duck under the &lt;&lt;= $enemy.type&gt;&gt;&#39;s attack. They don&#39;t look too happy about it.&quot;,
+            &quot;You avoid getting turned into an obituary with a quick backwards hop. Your heart pounds in your chest.&quot;
         )&gt;&gt;
     &lt;&lt;else&gt;&gt;
         STILL WIP. PLEASE HOLD.

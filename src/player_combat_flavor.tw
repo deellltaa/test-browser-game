@@ -5,6 +5,7 @@ Legend for integer values for player combat:
     2 is Tossing
     3 is Poking
     4 is Blocking
+    5 is Dodge
     
     Add more if this evolves past those three stats.
 -->
@@ -50,8 +51,13 @@ Legend for integer values for player combat:
     <</link>><br>
 <</if>>
 <<link "Defend yourself." "Combat">>
-    <<set $player.DMG_MULT = 0.5>>
-    <<set $last_player_action = 4>>
+    <<if random(1,10) === 10>>
+        <<set $player.DMG_MULT = 0>>
+        <<set $last_player_action = 5>>
+    <<else>>
+        <<set $player.DMG_MULT = 0.5>>
+        <<set $last_player_action = 4>>
+    <</if>>
 <</link>>
 <</nobr>>
 
@@ -78,7 +84,7 @@ Legend for integer values for player combat:
             "With a grunt, you throw a <<= $last_player_item>> towards the <<= $enemy.type>>.",
             "You let go of the <<= $last_player_item>> in your hand and watch it sail towards the <<= $enemy.type>>."
         )>>
-    <<elseif $last_Player_action === 3>>
+    <<elseif $last_player_action === 3>>
         <<= either(
             "You use your weapon to poke the <<= $enemy.type>>. You're not sure if it was all that effective."
         )>>
@@ -87,6 +93,12 @@ Legend for integer values for player combat:
             "You ready yourself and watch the <<= $enemy.type>> for any moves.",
             "You weave in place, readying yourself to dodge.",
             "You steel yourself, and prepare to take a hit."
+        )>>
+    <<elseif $last_player_action === 5>>
+        <<= either(
+            "You sidestep the <<= $enemy.type>>'s attack. You're not sure if it was luck or not.",
+            "You duck under the <<= $enemy.type>>'s attack. They don't look too happy about it.",
+            "You avoid getting turned into an obituary with a quick backwards hop. Your heart pounds in your chest."
         )>>
     <<else>>
         STILL WIP. PLEASE HOLD.

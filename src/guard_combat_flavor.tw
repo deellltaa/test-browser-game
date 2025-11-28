@@ -56,6 +56,6 @@
         <<set _dmg = _dmg*$player.DMG_MULT>><br>
         <<= _dmg>> DMG POST MULT
         <<set $player.DMG_MULT = 1>>
-        <<set $player.health -= Math.floor(_dmg)>>
+        <<set $player.health -= _dmg>>
     <</if>>
 <</nobr>>
