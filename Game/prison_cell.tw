@@ -33,3 +33,9 @@ There is a small window by a wall. <<nobr>>
 <<link "Wait. (0:30)" "Prison_Cell">>
     <<passtime 30>>
 <</link>>
+<<nobr>>
+    <<if $time gte 1140>>
+        <<set $previous_passage to passage()>>
+        [[Sleep.|Sleeping_Prison]]
+    <</if>>
+<</nobr>>

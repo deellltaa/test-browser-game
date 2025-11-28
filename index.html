@@ -100,7 +100,7 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 		<div id="init-lacking">Your browser lacks required capabilities. Please upgrade it or switch to another to continue.</div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<!-- UUID://201C3114-C46F-4B20-B131-63E2160DE135// --><tw-storydata name="Test Story" startnode="25" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="201C3114-C46F-4B20-B131-63E2160DE135" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Combat_Encounter_Start" tags="" position="100,100" size="100,100">&lt;&lt;if $current_location === &#39;prison_cell&#39;&gt;&gt;\
+	<!-- UUID://201C3114-C46F-4B20-B131-63E2160DE135// --><tw-storydata name="Test Story" startnode="27" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="201C3114-C46F-4B20-B131-63E2160DE135" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Combat_Encounter_Start" tags="" position="100,100" size="100,100">&lt;&lt;if $current_location === &#39;prison_cell&#39;&gt;&gt;\
     &lt;&lt;if $previous_passage === &#39;Opening_5&#39;&gt;&gt;\
         The &lt;&lt;= $enemy.type&gt;&gt; walks into the prison cell with a sneer on his face. The door is open behind him, yet the \
         enemy blocks your path. &quot;You should&#39;ve listened, slave.&quot;
@@ -444,7 +444,41 @@ There is a small window by a wall. &lt;&lt;nobr&gt;&gt;
 
 &lt;&lt;link &quot;Wait. (0:30)&quot; &quot;Prison_Cell&quot;&gt;&gt;
     &lt;&lt;passtime 30&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="StorySubtitle" tags="" position="100,350" size="100,100">v0.1.0
+&lt;&lt;/link&gt;&gt;
+&lt;&lt;nobr&gt;&gt;
+    &lt;&lt;if $time gte 1140&gt;&gt;
+        &lt;&lt;set $previous_passage to passage()&gt;&gt;
+        [[Sleep.|Sleeping_Prison]]
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="Sleeping_Prison" tags="" position="100,350" size="100,100">&lt;&lt;= either(
+        &quot;You lay on the rickety bed frame and try to get some sleep.&quot;,
+        &quot;You shift uncomfortably as you try to rest.&quot;
+    )&gt;&gt;
+
+    &lt;&lt;include Sleeping_Hours&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="Sleeping_Hours" tags="" position="225,350" size="100,100">&lt;&lt;link &quot;Sleep for 1:00&quot; $previous_passage&gt;&gt;
+        &lt;&lt;passtime 60&gt;&gt;
+    &lt;&lt;/link&gt;&gt;
+    &lt;&lt;link &quot;Sleep for 2:00&quot; $previous_passage&gt;&gt;
+        &lt;&lt;passtime 120&gt;&gt;
+    &lt;&lt;/link&gt;&gt;
+    &lt;&lt;link &quot;Sleep for 3:00&quot; $previous_passage&gt;&gt;
+        &lt;&lt;passtime 180&gt;&gt;
+    &lt;&lt;/link&gt;&gt;
+    &lt;&lt;link &quot;Sleep for 4:00&quot; $previous_passage&gt;&gt;
+        &lt;&lt;passtime 240&gt;&gt;
+    &lt;&lt;/link&gt;&gt;
+    &lt;&lt;link &quot;Sleep for 5:00&quot; $previous_passage&gt;&gt;
+        &lt;&lt;passtime 300&gt;&gt;
+    &lt;&lt;/link&gt;&gt;
+    &lt;&lt;link &quot;Sleep for 6:00&quot; $previous_passage&gt;&gt;
+        &lt;&lt;passtime 360&gt;&gt;
+    &lt;&lt;/link&gt;&gt;
+    &lt;&lt;link &quot;Sleep for 7:00&quot; $previous_passage&gt;&gt;
+        &lt;&lt;passtime 420&gt;&gt;
+    &lt;&lt;/link&gt;&gt;
+    &lt;&lt;link &quot;Sleep for 8:00&quot; $previous_passage&gt;&gt;
+        &lt;&lt;passtime 480&gt;&gt;
+    &lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="StorySubtitle" tags="" position="350,350" size="100,100">v0.1.0
 
 &lt;&lt;if $gameStart === true&gt;&gt;
 Day &lt;&lt;print $day&gt;&gt;
@@ -454,9 +488,9 @@ Day &lt;&lt;print $day&gt;&gt;
 &lt;&lt;else&gt;&gt;\
 &lt;&lt;print $time%60&gt;&gt;\
 &lt;&lt;/if&gt;&gt;\
-&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="22" name="StoryMenu" tags="" position="225,350" size="100,100">&lt;&lt;if $gameStart === true&gt;&gt;
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="24" name="StoryMenu" tags="" position="475,350" size="100,100">&lt;&lt;if $gameStart === true&gt;&gt;
     [[Stats]]
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="Stats" tags="" position="350,350" size="100,100">!Player Stats
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="Stats" tags="" position="600,350" size="100,100">!Player Stats
 You are @@color:yellow;&lt;&lt;print $player.name&gt;&gt;@@
 &lt;&lt;if $gameStart === true&gt;&gt;
 Level &lt;&lt;= $player.level&gt;&gt;
@@ -470,7 +504,7 @@ You have died @@color:red;&lt;&lt;= $player.deaths&gt;&gt;@@ times.
 &lt;&lt;include &quot;Skills&quot;&gt;&gt;
 &lt;&lt;include &quot;Inventory&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;return &quot;Go back&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="24" name="StoryInit" tags="" position="475,350" size="100,100">&lt;&lt;silently&gt;&gt;
+&lt;&lt;return &quot;Go back&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="26" name="StoryInit" tags="" position="725,350" size="100,100">&lt;&lt;silently&gt;&gt;
     &lt;&lt;set $player = {
         skills: {
             poking: 0,
@@ -492,7 +526,7 @@ You have died @@color:red;&lt;&lt;= $player.deaths&gt;&gt;@@ times.
     &lt;&lt;set $time = 0&gt;&gt;
     &lt;&lt;set $day = 0&gt;&gt;
     &lt;&lt;include &quot;Equipment_Damage_Mods&quot;&gt;&gt;
-&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="Start" tags="" position="600,350" size="100,100">This game may contain violent content. Be mindful that you, the player, do not attempt \
+&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="27" name="Start" tags="" position="850,350" size="100,100">This game may contain violent content. Be mindful that you, the player, do not attempt \
 anything the player character may do, including beating somebody&#39;s head in with a \
 @@color:red;brick@@, \
 or cutting open someone&#39;s guts with a @@color:brown;rusty knife@@, or anything else.
@@ -508,7 +542,7 @@ you are. What&#39;s your name?
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;set $gameStart = true&gt;&gt;
 &lt;&lt;set $time = 240&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="26" name="Inventory" tags="" position="725,350" size="100,100">!!Inventory
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="28" name="Inventory" tags="" position="975,350" size="100,100">!!Inventory
     &lt;&lt;nobr&gt;&gt;
         &lt;&lt;if JSON.stringify($player.inventory) === &quot;{}&quot;&gt;&gt;
             Nothing here yet. Go find some items...
@@ -518,7 +552,7 @@ you are. What&#39;s your name?
                 &lt;&lt;= $player.inventory[_keys[_i]]&gt;&gt;x &lt;&lt;=_keys[_i].toUpperFirst()&gt;&gt;(s)
             &lt;&lt;/for&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-    &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="27" name="Skills" tags="" position="850,350" size="100,100">!!Skills
+    &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="29" name="Skills" tags="" position="1100,350" size="100,100">!!Skills
     &lt;&lt;nobr&gt;&gt;
     &lt;&lt;set _keys = Object.keys($player.skills)&gt;&gt;
         &lt;&lt;for _i to 0; _i lt _keys.length; _i++&gt;&gt;
@@ -527,12 +561,12 @@ you are. What&#39;s your name?
                     &lt;br&gt;
                 &lt;&lt;/if&gt;&gt;
         &lt;&lt;/for&gt;&gt;
-    &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="28" name="Equipment_Damage_Mods" tags="" position="975,350" size="100,100">&lt;!-- Call on init. Flat damage added after dice rolls. --&gt;
+    &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="30" name="Equipment_Damage_Mods" tags="" position="1225,350" size="100,100">&lt;!-- Call on init. Flat damage added after dice rolls. --&gt;
 &lt;&lt;silently&gt;&gt;
     &lt;&lt;set $TOSSING_ITEM_MODIFIERS = {
         brick: 6
     }&gt;&gt;
-&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="29" name="Combat_Widget" tags="widget" position="1100,350" size="100,100">&lt;&lt;widget &#39;combat_widget&#39;&gt;&gt;\
+&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="31" name="Combat_Widget" tags="widget" position="100,475" size="100,100">&lt;&lt;widget &#39;combat_widget&#39;&gt;&gt;\
     &lt;&lt;nobr&gt;&gt;
         &lt;!-- Args[0] should be enemy type. --&gt;
         &lt;&lt;switch $args[0]&gt;&gt;
@@ -545,7 +579,7 @@ you are. What&#39;s your name?
                 }&gt;&gt;
         &lt;&lt;/switch&gt;&gt;
     &lt;&lt;/nobr&gt;&gt;\
-&lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="30" name="Combat_Finish" tags="widget" position="1225,350" size="100,100">&lt;&lt;widget &#39;combat_finish&#39;&gt;&gt; &lt;!-- Clean up enemy specific vars. --&gt;
+&lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="32" name="Combat_Finish" tags="widget" position="225,475" size="100,100">&lt;&lt;widget &#39;combat_finish&#39;&gt;&gt; &lt;!-- Clean up enemy specific vars. --&gt;
     &lt;&lt;nobr&gt;&gt;
         &lt;&lt;set $enemy = undefined&gt;&gt;
         &lt;&lt;set $prev_enemy_action = undefined&gt;&gt;
@@ -554,7 +588,7 @@ you are. What&#39;s your name?
         &lt;&lt;set $last_player_item = undefined&gt;&gt;
         &lt;&lt;set $player.DMG_MULT = 1&gt;&gt;
     &lt;&lt;/nobr&gt;&gt;
-&lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="31" name="Do_Damage" tags="widget" position="100,475" size="100,100">&lt;&lt;widget &#39;do_damage&#39;&gt;&gt;                                  
+&lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="33" name="Do_Damage" tags="widget" position="350,475" size="100,100">&lt;&lt;widget &#39;do_damage&#39;&gt;&gt;                                  
     &lt;&lt;nobr&gt;&gt;
     &lt;!-- Should only be called if there is an $enemy in front. 
          Might have to restructure if I want more than one enemy
@@ -579,7 +613,7 @@ you are. What&#39;s your name?
                 &lt;&lt;set $enemy.health -= _dmg + $TOSSING_ITEM_MODIFIERS[$args[1]]&gt;&gt;
         &lt;&lt;/switch&gt;&gt;
     &lt;&lt;/nobr&gt;&gt;
-&lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="32" name="Combat_Flavor_Driver" tags="widget" position="225,475" size="100,100">&lt;&lt;widget &#39;cf_driver&#39;&gt;&gt;
+&lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="34" name="Combat_Flavor_Driver" tags="widget" position="475,475" size="100,100">&lt;&lt;widget &#39;cf_driver&#39;&gt;&gt;
     &lt;&lt;include &#39;Player_Health_Indicator&#39;&gt;&gt;
     &lt;&lt;nobr&gt;&gt;
         &lt;&lt;switch $enemy.type&gt;&gt;
@@ -588,7 +622,7 @@ you are. What&#39;s your name?
         &lt;&lt;/switch&gt;&gt;
         &lt;&lt;include &#39;Player_Combat_Flavor&#39;&gt;&gt;
     &lt;&lt;/nobr&gt;&gt;
-&lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="33" name="Death_Handler" tags="widget" position="350,475" size="100,100">&lt;&lt;widget &#39;death_handler&#39;&gt;&gt;
+&lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="35" name="Death_Handler" tags="widget" position="600,475" size="100,100">&lt;&lt;widget &#39;death_handler&#39;&gt;&gt;
     &lt;&lt;nobr&gt;&gt;
         &lt;&lt;set $player.deaths += 1&gt;&gt;
         &lt;&lt;set $time = 240&gt;&gt;
@@ -619,7 +653,7 @@ you are. What&#39;s your name?
 
 &lt;!-- Widget to pass time 
 args[0] should be in minutes. --&gt;
-&lt;!-- Might be troublesome to do multi day changes.. But I&#39;ll figure it out some other time. --&gt;</tw-passagedata><tw-passagedata pid="34" name="Pass_Time" tags="widget" position="475,475" size="100,100">&lt;&lt;widget &#39;passtime&#39;&gt;&gt;\
+&lt;!-- Might be troublesome to do multi day changes.. But I&#39;ll figure it out some other time. --&gt;</tw-passagedata><tw-passagedata pid="36" name="Pass_Time" tags="widget" position="725,475" size="100,100">&lt;&lt;widget &#39;passtime&#39;&gt;&gt;\
 &lt;&lt;nobr&gt;&gt;
     &lt;&lt;if $time + $args[0] gte 1440&gt;&gt;
         &lt;&lt;set _diff = 1440 - $time&gt;&gt;

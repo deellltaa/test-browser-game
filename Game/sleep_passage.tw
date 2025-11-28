@@ -1,0 +1,34 @@
+<!-- recover energy and health as time goes on. -->
+:: Sleeping_Prison
+    <<= either(
+        "You lay on the rickety bed frame and try to get some sleep.",
+        "You shift uncomfortably as you try to rest."
+    )>>
+
+    <<include Sleeping_Hours>>
+
+:: Sleeping_Hours
+    <<link "Sleep for 1:00" $previous_passage>>
+        <<passtime 60>>
+    <</link>>
+    <<link "Sleep for 2:00" $previous_passage>>
+        <<passtime 120>>
+    <</link>>
+    <<link "Sleep for 3:00" $previous_passage>>
+        <<passtime 180>>
+    <</link>>
+    <<link "Sleep for 4:00" $previous_passage>>
+        <<passtime 240>>
+    <</link>>
+    <<link "Sleep for 5:00" $previous_passage>>
+        <<passtime 300>>
+    <</link>>
+    <<link "Sleep for 6:00" $previous_passage>>
+        <<passtime 360>>
+    <</link>>
+    <<link "Sleep for 7:00" $previous_passage>>
+        <<passtime 420>>
+    <</link>>
+    <<link "Sleep for 8:00" $previous_passage>>
+        <<passtime 480>>
+    <</link>>
