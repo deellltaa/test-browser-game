@@ -91,3 +91,21 @@
         <</for>>
     <</nobr>>
 <</widget>>
+
+<!-- Widget to pass time 
+args[0] should be in minutes. -->
+<!-- Might be troublesome to do multi day changes.. But I'll figure it out some other time. -->
+:: Pass_Time [widget]
+<<widget 'passtime'>>\
+<<nobr>>
+    <<if $time + $args[0] gte 1440>>
+        <<set _diff = 1440 - $time>>
+        <<set $time = 0>>
+        <<set $args[0] -= _diff>>
+        <<set $time = 0 + $args[0]>>
+        <<set $day += 1>>
+    <<else>>
+        <<set $time += $args[0]>>
+    <</if>>
+<</nobr>>\
+<</widget>>

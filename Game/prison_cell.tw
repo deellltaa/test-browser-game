@@ -1,4 +1,35 @@
+<!-- This should include:
+The location itself and,
+The actions able to be done in location -->
 :: Prison_Cell
 !Your Cell
 
-WIP
+<<nobr>>
+<<if $player.deaths gte 10>>
+    The cell is as small as ever. You're not sure you miss this, but... it's where you are.
+<<else>>
+    The cell is small and nearly suffocating.
+<</if>>
+<</nobr>>
+
+There is a small window by a wall. <<nobr>>
+<<if $time lte 390>>
+    It's still dark outside. You can barely hear anything going on. People are either sleeping or being quiet.
+<<elseif $time lte 480>>
+    The light of the morning sun streams down into your prison cell, providing a modicum amount of 
+    light into the place. You hear the early bustle of people moving about.
+<<elseif $time lte 780>>
+    Light streams down into your cell. The outside is loud. You hear a man scream instructions towards people, 
+    and the sounds of equipment moving and a synchronized yell.
+<<elseif $time lte 1140>>
+    The sun has passed, and light isn't bearing down into your cell anymore. You hear the rumble of people conversing. 
+    You hear equipment being moved and doors being closed. You wonder what's happening outside.
+<<else>>
+    Moonlight streams into your cell. It's not bright- it's almost calming, in fact. The night is calm, but you occasionally 
+    hear other people break the stillness outside your cell.
+<</if>>
+<</nobr>>
+
+<<link "Wait. (0:30)" "Prison_Cell">>
+    <<passtime 30>>
+<</link>>
