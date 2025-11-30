@@ -8,27 +8,13 @@
     <<include Sleeping_Hours>>
 
 :: Sleeping_Hours
-    <<link "Sleep for 1:00" $previous_passage>>
-        <<passtime 60>>
-    <</link>>
-    <<link "Sleep for 2:00" $previous_passage>>
-        <<passtime 120>>
-    <</link>>
-    <<link "Sleep for 3:00" $previous_passage>>
-        <<passtime 180>>
-    <</link>>
-    <<link "Sleep for 4:00" $previous_passage>>
-        <<passtime 240>>
-    <</link>>
-    <<link "Sleep for 5:00" $previous_passage>>
-        <<passtime 300>>
-    <</link>>
-    <<link "Sleep for 6:00" $previous_passage>>
-        <<passtime 360>>
-    <</link>>
-    <<link "Sleep for 7:00" $previous_passage>>
-        <<passtime 420>>
-    <</link>>
-    <<link "Sleep for 8:00" $previous_passage>>
-        <<passtime 480>>
-    <</link>>
+<<nobr>>
+    <<for _i = 1; _i lte 8; _i++>>
+        <<capture _i>>
+            <<link "Sleep for <<= _i>> hour<<nobr>><<if _i !== 1>>s<</if>><</nobr>>" $previous_passage>>
+                <<set _temp = _i*60>> <!-- Strange behavior if I pass this directly to the widget. -->
+                <<passtime _temp>>
+            <</link>><br>
+        <</capture>>
+    <</for>>
+<</nobr>>

@@ -448,37 +448,23 @@ There is a small window by a wall. &lt;&lt;nobr&gt;&gt;
 &lt;&lt;nobr&gt;&gt;
     &lt;&lt;if $time gte 1140&gt;&gt;
         &lt;&lt;set $previous_passage to passage()&gt;&gt;
-        [[Sleep.|Sleeping_Prison]]
+        [[Take some rest.|Sleeping_Prison]]
     &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="Sleeping_Prison" tags="" position="100,350" size="100,100">&lt;&lt;= either(
         &quot;You lay on the rickety bed frame and try to get some sleep.&quot;,
         &quot;You shift uncomfortably as you try to rest.&quot;
     )&gt;&gt;
 
-    &lt;&lt;include Sleeping_Hours&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="Sleeping_Hours" tags="" position="225,350" size="100,100">&lt;&lt;link &quot;Sleep for 1:00&quot; $previous_passage&gt;&gt;
-        &lt;&lt;passtime 60&gt;&gt;
-    &lt;&lt;/link&gt;&gt;
-    &lt;&lt;link &quot;Sleep for 2:00&quot; $previous_passage&gt;&gt;
-        &lt;&lt;passtime 120&gt;&gt;
-    &lt;&lt;/link&gt;&gt;
-    &lt;&lt;link &quot;Sleep for 3:00&quot; $previous_passage&gt;&gt;
-        &lt;&lt;passtime 180&gt;&gt;
-    &lt;&lt;/link&gt;&gt;
-    &lt;&lt;link &quot;Sleep for 4:00&quot; $previous_passage&gt;&gt;
-        &lt;&lt;passtime 240&gt;&gt;
-    &lt;&lt;/link&gt;&gt;
-    &lt;&lt;link &quot;Sleep for 5:00&quot; $previous_passage&gt;&gt;
-        &lt;&lt;passtime 300&gt;&gt;
-    &lt;&lt;/link&gt;&gt;
-    &lt;&lt;link &quot;Sleep for 6:00&quot; $previous_passage&gt;&gt;
-        &lt;&lt;passtime 360&gt;&gt;
-    &lt;&lt;/link&gt;&gt;
-    &lt;&lt;link &quot;Sleep for 7:00&quot; $previous_passage&gt;&gt;
-        &lt;&lt;passtime 420&gt;&gt;
-    &lt;&lt;/link&gt;&gt;
-    &lt;&lt;link &quot;Sleep for 8:00&quot; $previous_passage&gt;&gt;
-        &lt;&lt;passtime 480&gt;&gt;
-    &lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="StorySubtitle" tags="" position="350,350" size="100,100">v0.1.0
+    &lt;&lt;include Sleeping_Hours&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="Sleeping_Hours" tags="" position="225,350" size="100,100">&lt;&lt;nobr&gt;&gt;
+    &lt;&lt;for _i = 1; _i lte 8; _i++&gt;&gt;
+        &lt;&lt;capture _i&gt;&gt;
+            &lt;&lt;link &quot;Sleep for &lt;&lt;= _i&gt;&gt; hour&lt;&lt;nobr&gt;&gt;&lt;&lt;if _i !== 1&gt;&gt;s&lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&quot; $previous_passage&gt;&gt;
+                &lt;&lt;set _temp = _i*60&gt;&gt; &lt;!-- Strange behavior if I pass this directly to the widget. --&gt;
+                &lt;&lt;passtime _temp&gt;&gt;
+            &lt;&lt;/link&gt;&gt;&lt;br&gt;
+        &lt;&lt;/capture&gt;&gt;
+    &lt;&lt;/for&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="StorySubtitle" tags="" position="350,350" size="100,100">v0.1.0
 
 &lt;&lt;if $gameStart === true&gt;&gt;
 Day &lt;&lt;print $day&gt;&gt;
