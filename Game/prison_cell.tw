@@ -2,6 +2,10 @@
 The location itself and,
 The actions able to be done in location -->
 :: Prison_Cell
+<<silently>>
+<!-- Silent event checkers go here. Will pop before anything below it. -->
+
+<</silently>>\
 !Your Cell
 
 <<nobr>>
