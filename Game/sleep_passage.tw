@@ -6,6 +6,7 @@
     )>>
 
     <<include Sleeping_Hours>>
+    [[Get out of bed.|$previous_passage]]
 
 :: Sleeping_Hours
 <<nobr>>

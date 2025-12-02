@@ -1,0 +1,86 @@
+<!-- Skill Level Up Handlers. 
+     The idea should be:
+     Level 0 skill: Non entity, still learning the skill and no useable skill.
+     Level 1 skill: Learned SOME skill for it.
+     Level 2 skill: You know enough of it to be applicable to certain things.
+     Level 3 skill: You are decent at it, but not exceptional.
+     Level 4 skill: You are good at it, and you know a couple of tricks that others don't.
+     Level 5 skill: You've gone far with the skill, and there's little else you can do to improve it. 
+     
+     Working on a total exp thing rather than changing the value based on a threshold to make it simpler. I think this is
+     how other games do it as well? It's certainly easier to change up. -->
+
+:: Gain_Punching_Exp [widget]
+<<widget 'gain_punching_exp'>>
+    <<silently>>
+        <<if $punch_exp === undefined>>
+            <<set $punch_exp = 0>>
+        <</if>>
+
+        <<set $punch_exp += $args[0]>>
+
+        <<if $punch_exp lt 100>>
+            <<set $player.skills.punching = 0>>
+        <<elseif $punch_exp lt 200>>
+            <<set $player.skills.punching = 1>>
+        <<elseif $punch_exp lt 300>>
+            <<set $player.skills.punching = 2>>
+        <<elseif $punch_exp lt 400>>
+            <<set $player.skills.punching = 3>>
+        <<elseif $punch_exp lt 500>>
+            <<set $player.skills.punching = 4>>
+        <<else>>
+            <<set $player.skills.punching = 5>>
+        <</if>>
+    <</silently>>\
+<</widget>>\
+
+:: Gain_Tossing_Exp [widget]
+<<widget 'gain_tossing_exp'>>
+    <<silently>>
+        <<if $toss_exp === undefined>>
+            <<set $toss_exp = 0>>
+        <</if>>
+
+        <<set $toss_exp += $args[0]>>
+
+        <<if $toss_exp lt 100>>
+            <<set $player.skills.tossing = 0>>
+        <<elseif $toss_exp lt 200>>
+            <<set $player.skills.tossing = 1>>
+        <<elseif $toss_exp lt 300>>
+            <<set $player.skills.tossing = 2>>
+        <<elseif $toss_exp lt 400>>
+            <<set $player.skills.tossing = 3>>
+        <<elseif $toss_exp lt 500>>
+            <<set $player.skills.tossing = 4>>
+        <<else>>
+            <<set $player.skills.tossing = 5>>
+        <</if>>
+    <</silently>>\
+<</widget>>\
+
+:: Gain_Poking_Exp [widget]
+<<widget 'gain_poking_exp'>>
+    <<silently>>
+        <<if $poke_exp === undefined>>
+            <<set $poke_exp = 0>>
+        <</if>>
+
+        <<set $poke_exp += $args[0]>>
+
+        <<if $poke_exp lt 100>>
+            <<set $player.skills.poking = 0>>
+        <<elseif $poke_exp lt 200>>
+            <<set $player.skills.poking = 1>>
+        <<elseif $poke_exp lt 300>>
+            <<set $player.skills.poking = 2>>
+        <<elseif $poke_exp lt 400>>
+            <<set $player.skills.poking= 3>>
+        <<elseif $poke_exp lt 500>>
+            <<set $player.skills.poking = 4>>
+        <<else>>
+            <<set $player.skills.poking = 5>>
+        <</if>>
+    <</silently>>\
+<</widget>>\
