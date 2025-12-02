@@ -5,17 +5,13 @@
     <<if $time lte 390>>
         <<include Early_Morning_WO>>
     <<elseif $time lte 480>>
-        The light of the morning sun streams down into your prison cell, providing a modicum amount of 
-        light into the place. You hear the early bustle of people moving about.
+        <<include Morning_WO>>
     <<elseif $time lte 780>>
-        Light streams down into your cell. The outside is loud. You hear a man scream instructions towards people, 
-        and the sounds of equipment moving and a synchronized yell.
+        <<include Noon_WO>>
     <<elseif $time lte 1140>>
-        The sun has passed, and light isn't bearing down into your cell anymore. You hear the rumble of people conversing. 
-        You hear equipment being moved and doors being closed. You wonder what's happening outside.
+        <<include Afternoon_WO>>
     <<else>>
-        Moonlight streams into your cell. It's not bright- it's almost calming, in fact. The night is calm, but you occasionally 
-        hear other people break the stillness outside your cell.
+        <<include Evening_WO>>
     <</if>>
 <</nobr>>
 <<passtime 10>>
@@ -37,3 +33,53 @@ You stand close to your window. You squint to try and see anything out of the or
             You... can't really see anything. Oh well.
     <</switch>>
 <</nobr>>
+
+:: Morning_WO
+<<silently>>
+    <<set _temp = random(1,10)>>
+<</silently>>\
+<<nobr>>
+    <<if $training_flag === false or $training_flag === undefined>>
+        There's people about. You see rows of weapons being moved from one place to another. Spears, polearms, swords. Plenty of cold steel, 
+        a whole lot of pain. You're not particularly sure what they're doing with them.
+    <<elseif $training_flag === true>>
+        <<if $training_insight === false or $training_insight === undefined>>
+            You see people about. The weaponry being moved gives you some ideas of how to apply it to your own training. 
+            @@color:yellow;Your next training action will be a bit more effective.@@
+            <<set $training_insight = true>>
+        <<else>>
+            Nothing interesting is happening outside.
+        <</if>>
+    <</if>>
+<</nobr>>
+
+:: Noon_WO
+<<silently>>
+    <<set _temp = random(1,10)>>
+<</silently>>\
+<<nobr>>
+    <<if $training_flag === false or $training_flag === undefined>>
+        Looking out the window shows you why it was loud. There was a group of guards right in front of your window, doing repetitive 
+        actions like madmen. You were fascinated. You don't know why they do this, but in a moment of inspiration, you decide 
+        @@color:lime;to try mimicking them.@@<br>
+        <br>
+        @@color:yellow;Training actions unlocked.@@ You can now train to raise skills.
+    <<else>>
+        The guards are training outside your window. They're as loud as they usually are.
+    <</if>>
+<</nobr>>
+
+:: Afternoon_WO
+<<silently>>
+    <<set _temp = random(1,10)>>
+<</silently>>
+    <!-- Still thinking about this. Not sure what to add here. -->
+    PLACEHOLDER TEXT.
+
+:: Evening_WO
+<<silently>>
+    <<set _temp = random(1,10)>>
+<</silently>>
+    <!-- Still thinking about this. Not sure what to add here. -->
+    PLACEHOLDER TEXT.
+
