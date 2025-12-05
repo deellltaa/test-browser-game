@@ -444,21 +444,27 @@ There is a small window by a wall. &lt;&lt;nobr&gt;&gt;
     Moonlight streams into your cell. It&#39;s not bright- it&#39;s almost calming, in fact. The night is calm, but you occasionally 
     hear other people break the stillness outside your cell.
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;&lt;&lt;nobr&gt;&gt;&lt;br&gt;
-&lt;br&gt;
-&lt;&lt;if $trained !== undefined&gt;&gt;
-    &lt;&lt;switch $trained&gt;&gt;
-        &lt;&lt;case &#39;punching&#39;&gt;&gt;
-            &lt;&lt;= either(
-                &quot;Your muscles burn as you throw punches over and over again. @@color:yellow;It&#39;s working, but you don&#39;t know by how much.@@&quot;,
-                &quot;You try and punch an imaginary enemy. @@color:yellow;It works, and your muscles are ache as you rest.@@&quot;
-            )&gt;&gt;
-            &lt;&lt;set $trained = undefined&gt;&gt;
-    &lt;&lt;/switch&gt;&gt;
-&lt;&lt;/if&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;&lt;&lt;nobr&gt;&gt;
+    &lt;&lt;if $room_action !== undefined&gt;&gt;
+    &lt;br&gt;&lt;br&gt;
+        &lt;&lt;switch $room_action&gt;&gt;
+            &lt;&lt;case &#39;punching&#39;&gt;&gt;
+                &lt;&lt;= either(
+                    &quot;Your muscles burn as you throw punches over and over again. @@color:yellow;It&#39;s working, but you don&#39;t know by how much.@@&quot;,
+                    &quot;You try and punch an imaginary enemy. @@color:yellow;It works, and your muscles are ache as you rest.@@&quot;
+                )&gt;&gt;
+            &lt;&lt;case &#39;wait&#39;&gt;&gt;
+                &lt;&lt;= either(
+                    &quot;You lounge around your cell and do nothing productive.&quot;,
+                    &quot;You yawn as you idly stare up at your cell&#39;s ceiling.&quot;
+                )&gt;&gt;
+        &lt;&lt;/switch&gt;&gt;
+        &lt;&lt;set $room_action = undefined&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 
 &lt;&lt;link &quot;Wait. (0:30)&quot; &quot;Prison_Cell&quot;&gt;&gt;
+    &lt;&lt;set $room_action = &#39;wait&#39;&gt;&gt;
     &lt;&lt;passtime 30&gt;&gt;
 &lt;&lt;/link&gt;&gt;
 [[Take some rest.|Sleeping_Prison][$previous_passage = passage()]]
@@ -468,7 +474,7 @@ There is a small window by a wall. &lt;&lt;nobr&gt;&gt;
         &lt;&lt;link &quot;[Training] Practice your punching. (1:00)&quot; &quot;Prison_Cell&quot;&gt;&gt;
             &lt;&lt;passtime 60&gt;&gt;
             &lt;&lt;gain_punching_exp 8&gt;&gt;
-            &lt;&lt;set $trained = &#39;punching&#39;&gt;&gt;
+            &lt;&lt;set $room_action = &#39;punching&#39;&gt;&gt; &lt;!-- Better to use ints for memory&#39;s sake but strings to make it easier to remember for now.--&gt;
         &lt;&lt;/link&gt;&gt;
     &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="Window_Observation" tags="" position="100,350" size="100,100">&lt;&lt;nobr&gt;&gt;
