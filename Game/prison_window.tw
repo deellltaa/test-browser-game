@@ -39,10 +39,10 @@ You stand close to your window. You squint to try and see anything out of the or
     <<set _temp = random(1,10)>>
 <</silently>>\
 <<nobr>>
-    <<if $training_flag === false or $training_flag === undefined>>
+    <<if $flag.training === false or $flag.training === undefined>>
         There's people about. You see rows of weapons being moved from one place to another. Spears, polearms, swords. Plenty of cold steel, 
         a whole lot of pain. You're not particularly sure what they're doing with them.
-    <<elseif $training_flag === true>>
+    <<elseif $flag.training === true>>
         <<if $training_insight === false or $training_insight === undefined>>
             You see people about. The weaponry being moved gives you some ideas of how to apply it to your own training. 
             @@color:yellow;Your next training action will be a bit more effective.@@
@@ -58,12 +58,13 @@ You stand close to your window. You squint to try and see anything out of the or
     <<set _temp = random(1,10)>>
 <</silently>>\
 <<nobr>>
-    <<if $training_flag === false or $training_flag === undefined>>
+    <<if $flag.training === false or $flag.training === undefined>>
         Looking out the window shows you why it was loud. There was a group of guards right in front of your window, doing repetitive 
         actions like madmen. You were fascinated. You don't know why they do this, but in a moment of inspiration, you decide 
         @@color:lime;to try mimicking them.@@<br>
         <br>
         @@color:yellow;Training actions unlocked.@@ You can now train to raise skills.
+        <<set $flag.training = true>>
     <<else>>
         The guards are training outside your window. They're as loud as they usually are.
     <</if>>

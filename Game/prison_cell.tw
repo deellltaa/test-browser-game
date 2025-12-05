@@ -32,10 +32,31 @@ There is a small window by a wall. <<nobr>>
     Moonlight streams into your cell. It's not bright- it's almost calming, in fact. The night is calm, but you occasionally 
     hear other people break the stillness outside your cell.
 <</if>>
+<</nobr>><<nobr>><br>
+<br>
+<<if $trained !== undefined>>
+    <<switch $trained>>
+        <<case 'punching'>>
+            <<= either(
+                "Your muscles burn as you throw punches over and over again. @@color:yellow;It's working, but you don't know by how much.@@",
+                "You try and punch an imaginary enemy. @@color:yellow;It works, and your muscles are ache as you rest.@@"
+            )>>
+            <<set $trained = undefined>>
+    <</switch>>
+<</if>>
 <</nobr>>
 
 <<link "Wait. (0:30)" "Prison_Cell">>
     <<passtime 30>>
 <</link>>
-[[Take some rest.|Sleeping_Prison]]
+[[Take some rest.|Sleeping_Prison][$previous_passage = passage()]]
 [[Look out the window (0:10)|Window_Observation]]
+<<nobr>>
+    <<if $flag.training === true>>
+        <<link "[Training] Practice your punching. (1:00)" "Prison_Cell">>
+            <<passtime 60>>
+            <<gain_punching_exp 8>>
+            <<set $trained = 'punching'>>
+        <</link>>
+    <</if>>
+<</nobr>>

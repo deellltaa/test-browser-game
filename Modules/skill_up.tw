@@ -17,7 +17,14 @@
             <<set $punch_exp = 0>>
         <</if>>
 
-        <<set $punch_exp += $args[0]>>
+        <<if $training_insight === true>>
+            <<set _temp = $args[0] * 1.1>>
+            <<set $training_insight = false>>
+        <<else>>
+            <<set _temp = $args[0]>>
+        <</if>>   
+
+        <<set $punch_exp += _temp>>
 
         <<if $punch_exp lt 100>>
             <<set $player.skills.punching = 0>>
@@ -42,7 +49,14 @@
             <<set $toss_exp = 0>>
         <</if>>
 
-        <<set $toss_exp += $args[0]>>
+        <<if $training_insight === true>>
+            <<set _temp = $args[0] * 1.1>>
+            <<set $training_insight = false>>
+        <<else>>
+            <<set _temp = $args[0]>>
+        <</if>>   
+
+        <<set $toss_exp += _temp>>
 
         <<if $toss_exp lt 100>>
             <<set $player.skills.tossing = 0>>
@@ -67,7 +81,14 @@
             <<set $poke_exp = 0>>
         <</if>>
 
-        <<set $poke_exp += $args[0]>>
+        <<if $training_insight === true>>
+            <<set _temp = $args[0] * 1.1>>
+            <<set $training_insight = false>>
+        <<else>>
+            <<set _temp = $args[0]>>
+        <</if>>  
+
+        <<set $poke_exp += _temp>>
 
         <<if $poke_exp lt 100>>
             <<set $player.skills.poking = 0>>

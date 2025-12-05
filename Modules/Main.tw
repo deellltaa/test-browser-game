@@ -63,6 +63,8 @@ You have died @@color:red;<<= $player.deaths>>@@ times.
         inventory: {}
     }
     >>
+
+    <<set $flag = {}>>
     <<set $gameStart = false>>
     <<set $time = 0>>
     <<set $day = 0>>
